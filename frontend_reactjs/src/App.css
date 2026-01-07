@@ -371,21 +371,35 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid rgba(37, 99, 235, 0.18);
   background: rgba(249, 250, 251, 0.98);
   box-shadow: var(--shadow-md);
+
+  /* Critical for long input: prevent flex children from overflowing their container
+     which can visually clip the caret/text near the end. */
+  min-width: 0;
 }
 
-/* Group the input + clear button so the close button can sit at the far right. */
+/* Group the input so the close button can sit at the far right without overlapping typing. */
 .navSearchOverlay__fieldMain {
   display: flex;
   align-items: center;
   gap: 10px;
-  flex: 1 1 auto;
+
+  /* Ensure the input area expands fully but can also shrink without forcing overflow. */
+  flex: 1 1 0%;
   min-width: 0;
 }
 
+/* Overlay input must NOT inherit the navbar input's fixed width (260px). */
 .navSearchOverlay__input {
-  width: 100%;
+  flex: 1 1 0%;
+  width: auto;
+  max-width: none;
   min-width: 0;
+
   font-size: 0.95rem;
+
+  /* A tiny right padding helps the caret not feel tight against the close button,
+     while the button remains outside (no overlap). */
+  padding-right: 2px;
 }
 
 /* Close button: pinned to far-right end of the overlay field container. */
@@ -451,6 +465,14 @@ a { color: inherit; text-decoration: none; }
   font: inherit;
   color: var(--text);
   font-weight: 700;
+}
+
+/* Overlay-specific input sizing: override the fixed inline width used elsewhere. */
+.nav__searchInput.navSearchOverlay__input {
+  width: auto;
+  max-width: none;
+  min-width: 0;
+  flex: 1 1 0%;
 }
 
 .nav__searchInput::placeholder {
