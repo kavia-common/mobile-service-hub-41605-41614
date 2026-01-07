@@ -74,11 +74,7 @@ export default function Navbar() {
             Support
           </NavLink>
 
-          <div className="nav__cta">
-            <NavLink to="/booking" className="btn btn--primary" onClick={() => setOpen(false)}>
-              Book now
-            </NavLink>
-          </div>
+
         </nav>
       </div>
     </header>
