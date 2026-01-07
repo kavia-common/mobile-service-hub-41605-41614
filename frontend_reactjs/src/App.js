@@ -8,6 +8,10 @@ import Services from "./pages/Services";
 import ServiceDetail from "./pages/ServiceDetail";
 import Booking from "./pages/Booking";
 import Support from "./pages/Support";
+import CategoryMobilePhone from "./pages/CategoryMobilePhone";
+import CategoryTablet from "./pages/CategoryTablet";
+import CategoryMacBook from "./pages/CategoryMacBook";
+import CategorySmartwatch from "./pages/CategorySmartwatch";
 import NotFound from "./pages/NotFound";
 import { warnIfMissingBackend } from "./config/env";
 
@@ -26,6 +30,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
           <Route path="/services/:serviceId" element={<ServiceDetail />} />
+          <Route path="/category/mobile-phone" element={<CategoryMobilePhone />} />
+          <Route path="/category/tablet" element={<CategoryTablet />} />
+          <Route path="/category/macbook" element={<CategoryMacBook />} />
+          <Route path="/category/smartwatch" element={<CategorySmartwatch />} />
           <Route path="/booking" element={<Booking />} />
           <Route path="/support" element={<Support />} />
           <Route path="*" element={<NotFound />} />

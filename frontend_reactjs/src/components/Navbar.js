@@ -37,6 +37,36 @@ export default function Navbar() {
           <NavLink to="/services" className={({ isActive }) => `nav__link ${isActive ? "is-active" : ""}`} onClick={() => setOpen(false)}>
             Services
           </NavLink>
+
+          <NavLink
+            to="/category/mobile-phone"
+            className={({ isActive }) => `nav__link ${isActive ? "is-active" : ""}`}
+            onClick={() => setOpen(false)}
+          >
+            Mobile Phone
+          </NavLink>
+          <NavLink
+            to="/category/tablet"
+            className={({ isActive }) => `nav__link ${isActive ? "is-active" : ""}`}
+            onClick={() => setOpen(false)}
+          >
+            Tablet
+          </NavLink>
+          <NavLink
+            to="/category/macbook"
+            className={({ isActive }) => `nav__link ${isActive ? "is-active" : ""}`}
+            onClick={() => setOpen(false)}
+          >
+            MacBook
+          </NavLink>
+          <NavLink
+            to="/category/smartwatch"
+            className={({ isActive }) => `nav__link ${isActive ? "is-active" : ""}`}
+            onClick={() => setOpen(false)}
+          >
+            Smartwatch
+          </NavLink>
+
           <NavLink to="/booking" className={({ isActive }) => `nav__link ${isActive ? "is-active" : ""}`} onClick={() => setOpen(false)}>
             Booking
           </NavLink>
