@@ -165,26 +165,29 @@ export default function Navbar() {
         >
           <div className="container navSearchOverlay__inner">
             <div className="navSearchOverlay__fieldWrap">
-              <input
-                id={overlayInputId}
-                ref={inputRef}
-                className="nav__searchInput navSearchOverlay__input"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="search for your device"
-                aria-label="Search for your device"
-                autoComplete="off"
-              />
-              <button
-                type="button"
-                className="nav__clearBtn"
-                onClick={() => setQuery("")}
-                aria-label="Clear search"
-                disabled={!query}
-                title="Clear"
-              >
-                ×
-              </button>
+              <div className="navSearchOverlay__fieldMain">
+                <input
+                  id={overlayInputId}
+                  ref={inputRef}
+                  className="nav__searchInput navSearchOverlay__input"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="search for your device"
+                  aria-label="Search for your device"
+                  autoComplete="off"
+                />
+                <button
+                  type="button"
+                  className="nav__clearBtn"
+                  onClick={() => setQuery("")}
+                  aria-label="Clear search"
+                  disabled={!query}
+                  title="Clear"
+                >
+                  ×
+                </button>
+              </div>
+
               <button
                 type="button"
                 className="navSearchOverlay__closeBtn"
@@ -192,7 +195,7 @@ export default function Navbar() {
                 aria-label="Close search"
                 title="Close"
               >
-                Close
+                ×
               </button>
             </div>
 

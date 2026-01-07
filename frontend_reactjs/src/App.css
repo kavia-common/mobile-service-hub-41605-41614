@@ -372,13 +372,26 @@ a { color: inherit; text-decoration: none; }
   box-shadow: var(--shadow-md);
 }
 
+/* Group the input + clear button so the close button can sit at the far right. */
+.navSearchOverlay__fieldMain {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 .navSearchOverlay__input {
   width: 100%;
   min-width: 0;
   font-size: 0.95rem;
 }
 
+/* Close button: pinned to far-right end of the overlay field container. */
 .navSearchOverlay__closeBtn {
+  margin-left: auto;
+  flex: 0 0 auto;
+
   border: 1px solid var(--border);
   background: rgba(249, 250, 251, 0.85);
   color: var(--muted);
@@ -387,12 +400,21 @@ a { color: inherit; text-decoration: none; }
   border-radius: 12px;
   padding: 8px 10px;
   cursor: pointer;
-  transition: transform 140ms ease, box-shadow 140ms ease;
+
+  /* Only paint/transform transitions (no layout-affecting animations). */
+  transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease, border-color 140ms ease;
 }
 
 .navSearchOverlay__closeBtn:hover {
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
+}
+
+/* Focus ring without layout shift. */
+.navSearchOverlay__closeBtn:focus-visible {
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.16);
+  border-color: rgba(37, 99, 235, 0.28);
+  outline: none;
 }
 
 .navSearchOverlay__hint {
@@ -412,8 +434,11 @@ a { color: inherit; text-decoration: none; }
     border-radius: 14px;
   }
 
+  /* Show close on mobile too, as requested; keep it compact. */
   .navSearchOverlay__closeBtn {
-    display: none; /* keep it compact; Esc/backdrop still closes */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
