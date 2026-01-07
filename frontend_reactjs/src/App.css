@@ -242,20 +242,21 @@ a { color: inherit; text-decoration: none; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
 
-  /* Stable box: fixed height + consistent padding/line-height */
-  height: 42px;
-  padding: 0 12px;
+  /* Compact but stable box: fixed height + consistent padding/line-height */
+  height: 34px;
+  padding: 0 10px;
   line-height: 1;
 
-  border-radius: 12px;
+  border-radius: 10px;
   border: 1px solid var(--border);
   background: transparent;
   box-shadow: none;
   cursor: pointer;
   color: var(--text);
   font-weight: 900;
+  font-size: 0.9rem;
 
   /* Only transition paint/transform (avoid layout-affecting transitions). */
   transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
@@ -284,14 +285,14 @@ a { color: inherit; text-decoration: none; }
 }
 
 .nav__icon {
-  font-size: 1rem;
+  font-size: 0.95rem;
   line-height: 1;
   color: var(--primary);
 }
 
 .nav__iconBtnText {
   display: none;
-  font-size: 0.92rem;
+  font-size: 0.88rem;
 }
 
 /* Inline field wrap is no longer used for the navbar search (search is now an overlay).
