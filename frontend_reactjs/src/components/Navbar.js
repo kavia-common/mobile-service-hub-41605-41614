@@ -31,13 +31,6 @@ export default function Navbar() {
         </button>
 
         <nav className={`nav__links ${open ? "nav__links--open" : ""}`} aria-label="Primary">
-          <NavLink to="/" end className={({ isActive }) => `nav__link ${isActive ? "is-active" : ""}`} onClick={() => setOpen(false)}>
-            Home
-          </NavLink>
-          <NavLink to="/services" className={({ isActive }) => `nav__link ${isActive ? "is-active" : ""}`} onClick={() => setOpen(false)}>
-            Services
-          </NavLink>
-
           <NavLink
             to="/category/mobile-phone"
             className={({ isActive }) => `nav__link ${isActive ? "is-active" : ""}`}
@@ -67,14 +60,20 @@ export default function Navbar() {
             Smartwatch
           </NavLink>
 
-          <NavLink to="/booking" className={({ isActive }) => `nav__link ${isActive ? "is-active" : ""}`} onClick={() => setOpen(false)}>
+          <NavLink
+            to="/booking"
+            className={({ isActive }) => `nav__link ${isActive ? "is-active" : ""}`}
+            onClick={() => setOpen(false)}
+          >
             Booking
           </NavLink>
-          <NavLink to="/support" className={({ isActive }) => `nav__link ${isActive ? "is-active" : ""}`} onClick={() => setOpen(false)}>
+          <NavLink
+            to="/support"
+            className={({ isActive }) => `nav__link ${isActive ? "is-active" : ""}`}
+            onClick={() => setOpen(false)}
+          >
             Support
           </NavLink>
-
-
         </nav>
       </div>
     </header>
