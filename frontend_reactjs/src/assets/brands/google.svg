@@ -1,13 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="Google logo">
-  <rect width="128" height="128" rx="28" fill="rgba(37,99,235,0.10)"/>
-  <circle cx="64" cy="58" r="24" fill="none" stroke="#2563EB" stroke-width="10" stroke-linecap="round"
-    stroke-dasharray="60 160" stroke-dashoffset="10"/>
-  <circle cx="64" cy="58" r="24" fill="none" stroke="#F59E0B" stroke-width="10" stroke-linecap="round"
-    stroke-dasharray="60 160" stroke-dashoffset="70"/>
-  <circle cx="64" cy="58" r="24" fill="none" stroke="#10B981" stroke-width="10" stroke-linecap="round"
-    stroke-dasharray="60 160" stroke-dashoffset="130"/>
-  <circle cx="64" cy="58" r="24" fill="none" stroke="#EF4444" stroke-width="10" stroke-linecap="round"
-    stroke-dasharray="60 160" stroke-dashoffset="190"/>
-  <path d="M64 58h22" stroke="#2563EB" stroke-width="10" stroke-linecap="round"/>
-  <text x="64" y="114" text-anchor="middle" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#6B7280">Google</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 262" role="img" aria-label="Google logo">
+  <path fill="#4285F4" d="M255.68 133.5c0-11.2-1-22-2.9-32.5H130.5v61.6h69.9c-3 16.2-12.2 29.9-26 39.1v32h41.9c24.5-22.6 39.4-55.9 39.4-100.2z"/>
+  <path fill="#34A853" d="M130.5 261c35.2 0 64.7-11.7 86.3-31.6l-41.9-32c-11.6 7.8-26.5 12.4-44.4 12.4-34 0-62.7-22.9-73-53.7H14.2v33.7C35.7 232.1 79.9 261 130.5 261z"/>
+  <path fill="#FBBC05" d="M57.5 156.1c-2.7-8.2-4.2-17-4.2-26.1s1.5-17.9 4.2-26.1V70.2H14.2C5.2 88.1 0 108.4 0 130s5.2 41.9 14.2 59.8l43.3-33.7z"/>
+  <path fill="#EA4335" d="M130.5 50.1c19.1 0 36.2 6.6 49.7 19.5l37.2-37.2C195.1 11.7 165.7 0 130.5 0 79.9 0 35.7 28.9 14.2 70.2l43.3 33.7c10.3-30.8 39-53.8 73-53.8z"/>
 </svg>
