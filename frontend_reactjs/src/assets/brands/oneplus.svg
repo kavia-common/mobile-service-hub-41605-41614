@@ -1,9 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="OnePlus logo">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="OnePlus logo">
   <rect width="128" height="128" rx="28" fill="rgba(37,99,235,0.10)"/>
-  <rect x="30" y="30" width="68" height="68" rx="18" fill="#EF4444"/>
-  <path d="M55 52v24" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
-  <path d="M43 64h24" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
-  <path d="M74 54h12" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
-  <path d="M80 48v12" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+  <!-- OnePlus: red square mark with white "1+" monogram (simplified, grid-friendly) -->
+  <rect x="26" y="26" width="76" height="76" rx="16" fill="#E60012"/>
+  <!-- "1" -->
+  <path d="M55 44h10v48h-10z" fill="#fff"/>
+  <!-- "+" -->
+  <path d="M76 52h9v9h-9z" fill="#fff"/>
+  <path d="M79.5 48.5h2v16h-2z" fill="#fff"/>
+  <!-- small corner notch/outline hint -->
+  <path d="M38 44v-8h20" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
   <text x="64" y="114" text-anchor="middle" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#6B7280">OnePlus</text>
 </svg>
