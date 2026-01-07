@@ -2,17 +2,28 @@ import React from "react";
 import { Link } from "react-router-dom";
 import BrandCard from "./BrandCard";
 
+import appleLogo from "../assets/brands/apple.svg";
+import samsungLogo from "../assets/brands/samsung.svg";
+import googleLogo from "../assets/brands/google.svg";
+import oneplusLogo from "../assets/brands/oneplus.svg";
+import xiaomiLogo from "../assets/brands/xiaomi.svg";
+import huaweiLogo from "../assets/brands/huawei.svg";
+import motorolaLogo from "../assets/brands/motorola.svg";
+import nokiaLogo from "../assets/brands/nokia.svg";
+import sonyLogo from "../assets/brands/sony.svg";
+import lgLogo from "../assets/brands/lg.svg";
+
 const defaultBrands = [
-  "Apple",
-  "Samsung",
-  "Google",
-  "OnePlus",
-  "Xiaomi",
-  "Huawei",
-  "Motorola",
-  "Nokia",
-  "Sony",
-  "LG"
+  { name: "Apple", logoSrc: appleLogo, logoAlt: "Apple logo" },
+  { name: "Samsung", logoSrc: samsungLogo, logoAlt: "Samsung logo" },
+  { name: "Google", logoSrc: googleLogo, logoAlt: "Google logo" },
+  { name: "OnePlus", logoSrc: oneplusLogo, logoAlt: "OnePlus logo" },
+  { name: "Xiaomi", logoSrc: xiaomiLogo, logoAlt: "Xiaomi logo" },
+  { name: "Huawei", logoSrc: huaweiLogo, logoAlt: "Huawei logo" },
+  { name: "Motorola", logoSrc: motorolaLogo, logoAlt: "Motorola logo" },
+  { name: "Nokia", logoSrc: nokiaLogo, logoAlt: "Nokia logo" },
+  { name: "Sony", logoSrc: sonyLogo, logoAlt: "Sony logo" },
+  { name: "LG", logoSrc: lgLogo, logoAlt: "LG logo" }
 ];
 
 // PUBLIC_INTERFACE
@@ -39,8 +50,12 @@ export default function Hero({
 
           <div className="brandGrid" role="list" aria-label="Supported brands">
             {brands.slice(0, 10).map((b) => (
-              <div role="listitem" key={b}>
-                <BrandCard name={b} />
+              <div role="listitem" key={b?.name || String(b)}>
+                <BrandCard
+                  name={b?.name || b}
+                  logoSrc={b?.logoSrc}
+                  logoAlt={b?.logoAlt}
+                />
               </div>
             ))}
           </div>

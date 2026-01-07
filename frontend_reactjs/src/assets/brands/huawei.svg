@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="Huawei logo">
+  <rect width="128" height="128" rx="28" fill="rgba(37,99,235,0.10)"/>
+  <g transform="translate(64 58)">
+    <path d="M0-28 C-10-18 -16-6 -14 6 C-7 4 -2-6 0-28" fill="#EF4444"/>
+    <path d="M12-24 C3-16 -3-5 -2 10 C5 8 10-2 12-24" fill="#EF4444"/>
+    <path d="M24-14 C16-10 10-2 8 12 C15 12 22 4 24-14" fill="#EF4444"/>
+    <path d="M-12-24 C-3-16 3-5 2 10 C-5 8 -10-2 -12-24" fill="#EF4444"/>
+    <path d="M-24-14 C-16-10 -10-2 -8 12 C-15 12 -22 4 -24-14" fill="#EF4444"/>
+    <path d="M0 26 C-6 22 -10 18 -12 12 C-4 10 0 14 0 26" fill="#EF4444"/>
+    <path d="M12 12 C10 18 6 22 0 26 C0 14 4 10 12 12" fill="#EF4444"/>
+  </g>
+  <text x="64" y="114" text-anchor="middle" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#6B7280">Huawei</text>
+</svg>

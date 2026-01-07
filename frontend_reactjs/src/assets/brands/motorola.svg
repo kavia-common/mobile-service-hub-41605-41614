@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="Motorola logo">
+  <rect width="128" height="128" rx="28" fill="rgba(37,99,235,0.10)"/>
+  <circle cx="64" cy="60" r="34" fill="#2563EB"/>
+  <path d="M44 76V52c0-6 4-10 10-10 5 0 9 3 10 7 1-4 5-7 10-7 6 0 10 4 10 10v24h-8V54c0-2-2-4-4-4-3 0-4 2-4 4v22h-8V54c0-2-2-4-4-4-3 0-4 2-4 4v22h-8z" fill="#ffffff"/>
+  <text x="64" y="114" text-anchor="middle" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#6B7280">Motorola</text>
+</svg>
