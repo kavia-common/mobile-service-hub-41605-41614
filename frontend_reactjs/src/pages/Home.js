@@ -21,10 +21,7 @@ export default function Home() {
 
   return (
     <main>
-      <Hero
-        title="Mobile services, booking, and support—one place."
-        subtitle="Explore common device services, request a booking in minutes, and get help when you need it."
-      />
+      <Hero />
 
       <section className="section">
         <div className="container">

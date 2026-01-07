@@ -1,16 +1,49 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import BrandCard from "./BrandCard";
+
+const defaultBrands = [
+  "Apple",
+  "Samsung",
+  "Google",
+  "OnePlus",
+  "Xiaomi",
+  "Huawei",
+  "Motorola",
+  "Nokia",
+  "Sony",
+  "LG"
+];
 
 // PUBLIC_INTERFACE
-export default function Hero({ title, subtitle, ctaLabel = "Book a service", ctaTo = "/booking", secondaryLabel = "View services", secondaryTo = "/services" }) {
-  /** Hero/banner section with primary and secondary CTAs. */
+export default function Hero({
+  ctaLabel = "Book a service",
+  ctaTo = "/booking",
+  secondaryLabel = "View services",
+  secondaryTo = "/services",
+  brands = defaultBrands
+}) {
+  /** Hero/banner section with a brand grid plus primary and secondary CTAs. */
   return (
     <section className="hero">
       <div className="container hero__inner">
         <div className="hero__content">
-          <div className="hero__kicker">Mobile help, simplified</div>
-          <h1 className="hero__title">{title}</h1>
-          <p className="hero__subtitle">{subtitle}</p>
+          <div className="hero__gridHeader">
+            <div>
+              <div className="pill pill--soft">Brands we support</div>
+              <p className="muted hero__gridSub">
+                Select a brand to explore common services and repairs. (Placeholder list)
+              </p>
+            </div>
+          </div>
+
+          <div className="brandGrid" role="list" aria-label="Supported brands">
+            {brands.slice(0, 10).map((b) => (
+              <div role="listitem" key={b}>
+                <BrandCard name={b} />
+              </div>
+            ))}
+          </div>
 
           <div className="hero__actions">
             <Link to={ctaTo} className="btn btn--primary btn--large">
@@ -19,21 +52,6 @@ export default function Hero({ title, subtitle, ctaLabel = "Book a service", cta
             <Link to={secondaryTo} className="btn btn--ghost btn--large">
               {secondaryLabel}
             </Link>
-          </div>
-
-          <div className="hero__trust">
-            <div className="stat">
-              <div className="stat__value">Fast</div>
-              <div className="stat__label">Quick turnaround</div>
-            </div>
-            <div className="stat">
-              <div className="stat__value">Clear</div>
-              <div className="stat__label">Up-front estimates</div>
-            </div>
-            <div className="stat">
-              <div className="stat__value">Help</div>
-              <div className="stat__label">Friendly support</div>
-            </div>
           </div>
         </div>
 

@@ -292,11 +292,57 @@ a { color: inherit; text-decoration: none; }
   margin-top: 18px;
 }
 
-.hero__trust {
-  margin-top: 18px;
+.hero__gridHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.hero__gridSub {
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+.brandGrid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.brandCard {
+  padding: 14px;
+  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+}
+
+.brandCard:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(37, 99, 235, 0.25);
+}
+
+.brandCard__inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brandCard__mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  color: var(--primary);
+  background: rgba(37, 99, 235, 0.10);
+  border: 1px solid rgba(37, 99, 235, 0.18);
+}
+
+.brandCard__name {
+  font-weight: 900;
+  letter-spacing: -0.02em;
 }
 
 .stat {
@@ -623,6 +669,8 @@ a { color: inherit; text-decoration: none; }
   .detailGrid { grid-template-columns: 1fr; }
   .footer__inner { grid-template-columns: 1fr; }
   .twoCol { grid-template-columns: 1fr; }
+
+  .brandGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 @media (max-width: 720px) {
@@ -644,5 +692,5 @@ a { color: inherit; text-decoration: none; }
   .nav__cta { margin-left: 0; }
   .grid { grid-template-columns: 1fr; }
   .form__grid { grid-template-columns: 1fr; }
-  .hero__trust { grid-template-columns: 1fr; }
+  .brandGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
