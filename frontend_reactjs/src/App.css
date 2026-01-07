@@ -245,7 +245,7 @@ a { color: inherit; text-decoration: none; }
 
 .hero__inner {
   display: grid;
-  grid-template-columns: 1.3fr 0.7fr;
+  grid-template-columns: 1fr;
   gap: 18px;
   align-items: stretch;
 }
@@ -380,6 +380,7 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin-top: 18px;
 }
 
 .heroCard__header {

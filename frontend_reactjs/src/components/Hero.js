@@ -68,23 +68,23 @@ export default function Hero({
               {secondaryLabel}
             </Link>
           </div>
-        </div>
 
-        <div className="hero__card" aria-label="Featured services">
-          <div className="heroCard__header">
-            <div className="heroCard__title">Featured services</div>
-            <div className="heroCard__badge">This week</div>
-          </div>
-          <ul className="heroCard__list">
-            <li><span className="dot dot--primary" /> Screen repair</li>
-            <li><span className="dot dot--amber" /> Battery replacement</li>
-            <li><span className="dot dot--primary" /> Charging port fixes</li>
-            <li><span className="dot dot--amber" /> Diagnostics</li>
-          </ul>
-          <div className="heroCard__footer">
-            <Link to="/services" className="link">
-              Browse all services →
-            </Link>
+          <div className="hero__card" aria-label="Featured services">
+            <div className="heroCard__header">
+              <div className="heroCard__title">Featured services</div>
+              <div className="heroCard__badge">This week</div>
+            </div>
+            <ul className="heroCard__list">
+              <li><span className="dot dot--primary" /> Screen repair</li>
+              <li><span className="dot dot--amber" /> Battery replacement</li>
+              <li><span className="dot dot--primary" /> Charging port fixes</li>
+              <li><span className="dot dot--amber" /> Diagnostics</li>
+            </ul>
+            <div className="heroCard__footer">
+              <Link to="/services" className="link">
+                Browse all services →
+              </Link>
+            </div>
           </div>
         </div>
       </div>
