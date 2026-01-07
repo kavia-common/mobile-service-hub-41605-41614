@@ -22,13 +22,24 @@ export default function Navbar() {
     // Delay slightly to ensure the element is in the DOM.
     const id = setTimeout(() => inputRef.current?.focus(), 0);
 
-    // Prevent background scroll while the overlay is open (mobile-friendly).
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    // Prevent background scroll while the overlay is open (mobile-friendly),
+    // but compensate for scrollbar width to avoid horizontal layout "jump".
+    const body = document.body;
+    const prevPaddingRight = body.style.paddingRight;
+    const prevComp = body.style.getPropertyValue("--scrollbar-comp");
+
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    body.style.setProperty("--scrollbar-comp", `${Math.max(0, scrollbarWidth)}px`);
+    body.classList.add("is-scroll-locked");
 
     return () => {
       clearTimeout(id);
-      document.body.style.overflow = prevOverflow;
+      body.classList.remove("is-scroll-locked");
+
+      // Restore any previous values
+      body.style.paddingRight = prevPaddingRight;
+      if (prevComp) body.style.setProperty("--scrollbar-comp", prevComp);
+      else body.style.removeProperty("--scrollbar-comp");
     };
   }, [searchOpen]);
 
