@@ -348,6 +348,11 @@ a { color: inherit; text-decoration: none; }
   display: block;
 }
 
+/* Ensure Apple logo renders white (the SVG uses currentColor). */
+.brandCard__logo[alt="Apple logo"] {
+  color: #FFFFFF;
+}
+
 .brandCard__initial {
   line-height: 1;
 }
