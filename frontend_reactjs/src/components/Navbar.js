@@ -176,16 +176,6 @@ export default function Navbar() {
                   aria-label="Search for your device"
                   autoComplete="off"
                 />
-                <button
-                  type="button"
-                  className="nav__clearBtn"
-                  onClick={() => setQuery("")}
-                  aria-label="Clear search"
-                  disabled={!query}
-                  title="Clear"
-                >
-                  ×
-                </button>
               </div>
 
               <button
