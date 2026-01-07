@@ -261,6 +261,8 @@ a { color: inherit; text-decoration: none; }
   font-size: 0.92rem;
 }
 
+/* Inline field wrap is no longer used for the navbar search (search is now an overlay).
+   Keeping these rules so other styling remains stable and for backward compatibility. */
 .nav__searchFieldWrap {
   display: none;
   align-items: center;
@@ -273,6 +275,95 @@ a { color: inherit; text-decoration: none; }
 
 .nav__search--open .nav__searchFieldWrap {
   display: inline-flex;
+}
+
+/* Search overlay (does not affect navbar layout) */
+.navSearchOverlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 70px; /* directly under the sticky navbar */
+  z-index: 60; /* above nav content (nav is 50) */
+  display: none;
+  padding: 12px 0 18px;
+  background: rgba(17, 24, 39, 0.22);
+  backdrop-filter: blur(2px);
+}
+
+.navSearchOverlay.is-open {
+  display: block;
+}
+
+.navSearchOverlay__panel {
+  width: 100%;
+  transform: translateY(-6px);
+  opacity: 0;
+  transition: transform 160ms ease, opacity 160ms ease;
+}
+
+.navSearchOverlay.is-open .navSearchOverlay__panel {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.navSearchOverlay__inner {
+  display: grid;
+  gap: 8px;
+}
+
+.navSearchOverlay__fieldWrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(37, 99, 235, 0.18);
+  background: rgba(249, 250, 251, 0.98);
+  box-shadow: var(--shadow-md);
+}
+
+.navSearchOverlay__input {
+  width: 100%;
+  min-width: 0;
+}
+
+.navSearchOverlay__closeBtn {
+  border: 1px solid var(--border);
+  background: rgba(249, 250, 251, 0.85);
+  color: var(--muted);
+  font: inherit;
+  font-weight: 900;
+  border-radius: 12px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: transform 140ms ease, box-shadow 140ms ease;
+}
+
+.navSearchOverlay__closeBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.navSearchOverlay__hint {
+  color: rgba(107, 114, 128, 0.95);
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+/* Mobile: overlay remains full width and does not push menu */
+@media (max-width: 720px) {
+  .navSearchOverlay {
+    top: 70px;
+    padding: 10px 0 14px;
+  }
+
+  .navSearchOverlay__fieldWrap {
+    border-radius: 14px;
+  }
+
+  .navSearchOverlay__closeBtn {
+    display: none; /* keep it compact; Esc/backdrop still closes */
+  }
 }
 
 .nav__searchInput {

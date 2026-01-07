@@ -11,15 +11,25 @@ export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
   const inputRef = useRef(null);
+  const overlayInputId = "navbar-search-overlay";
 
-  // Focus the input when it becomes visible.
+  const closeSearch = () => setSearchOpen(false);
+
+  // Focus the input when the overlay becomes visible.
   useEffect(() => {
-    if (searchOpen) {
-      // Delay slightly to ensure the element is in the DOM.
-      const id = setTimeout(() => inputRef.current?.focus(), 0);
-      return () => clearTimeout(id);
-    }
-    return undefined;
+    if (!searchOpen) return undefined;
+
+    // Delay slightly to ensure the element is in the DOM.
+    const id = setTimeout(() => inputRef.current?.focus(), 0);
+
+    // Prevent background scroll while the overlay is open (mobile-friendly).
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      clearTimeout(id);
+      document.body.style.overflow = prevOverflow;
+    };
   }, [searchOpen]);
 
   // Close search on Escape for good UX.
@@ -27,9 +37,7 @@ export default function Navbar() {
     if (!searchOpen) return undefined;
 
     const onKeyDown = (e) => {
-      if (e.key === "Escape") {
-        setSearchOpen(false);
-      }
+      if (e.key === "Escape") closeSearch();
     };
 
     window.addEventListener("keydown", onKeyDown);
@@ -54,43 +62,21 @@ export default function Navbar() {
         </div>
 
         <div className="nav__right">
-          <div className={`nav__search ${searchOpen ? "nav__search--open" : ""}`}>
+          {/* Keep the trigger button in the navbar so spacing never changes. */}
+          <div className="nav__search">
             <button
               type="button"
               className="nav__iconBtn"
               onClick={toggleSearch}
               aria-label={searchOpen ? "Close search" : "Open search"}
               aria-expanded={searchOpen ? "true" : "false"}
-              aria-controls="navbar-search"
+              aria-controls={overlayInputId}
             >
               <span className="nav__icon" aria-hidden="true">
                 ⌕
               </span>
               <span className="nav__iconBtnText">Search</span>
             </button>
-
-            <div className="nav__searchFieldWrap">
-              <input
-                id="navbar-search"
-                ref={inputRef}
-                className="nav__searchInput"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="search for your device"
-                aria-label="Search for your device"
-                autoComplete="off"
-              />
-              <button
-                type="button"
-                className="nav__clearBtn"
-                onClick={() => setQuery("")}
-                aria-label="Clear search"
-                disabled={!query}
-                title="Clear"
-              >
-                ×
-              </button>
-            </div>
           </div>
 
           <button
@@ -148,6 +134,62 @@ export default function Navbar() {
             Support
           </NavLink>
         </nav>
+      </div>
+
+      {/* Overlay layer is outside the nav__inner flow so nothing shifts/compresses. */}
+      <div
+        className={`navSearchOverlay ${searchOpen ? "is-open" : ""}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Search"
+        aria-hidden={searchOpen ? "false" : "true"}
+        onMouseDown={(e) => {
+          // Click on the backdrop closes; clicks inside panel should not.
+          if (e.target === e.currentTarget) closeSearch();
+        }}
+      >
+        <div
+          className="navSearchOverlay__panel"
+          onMouseDown={(e) => e.stopPropagation()}
+        >
+          <div className="container navSearchOverlay__inner">
+            <div className="navSearchOverlay__fieldWrap">
+              <input
+                id={overlayInputId}
+                ref={inputRef}
+                className="nav__searchInput navSearchOverlay__input"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="search for your device"
+                aria-label="Search for your device"
+                autoComplete="off"
+              />
+              <button
+                type="button"
+                className="nav__clearBtn"
+                onClick={() => setQuery("")}
+                aria-label="Clear search"
+                disabled={!query}
+                title="Clear"
+              >
+                ×
+              </button>
+              <button
+                type="button"
+                className="navSearchOverlay__closeBtn"
+                onClick={closeSearch}
+                aria-label="Close search"
+                title="Close"
+              >
+                Close
+              </button>
+            </div>
+
+            <div className="navSearchOverlay__hint" aria-hidden="true">
+              Press Esc to close
+            </div>
+          </div>
+        </div>
       </div>
     </header>
   );
