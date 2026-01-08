@@ -157,7 +157,7 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <div className="homeTrustCard__text">Live Repair Tracking</div>
+              <div className="homeTrustCard__text">Real-Time Service Updates</div>
             </div>
 
             <div className="card homeTrustCard" role="listitem">
