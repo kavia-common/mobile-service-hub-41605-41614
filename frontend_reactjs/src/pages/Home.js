@@ -216,6 +216,22 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Trust message section (between Map and Brand sections, per spec) */}
+        <section className="homeTrustMessage section" aria-label="No-friction trust message">
+          <div className="homeTrustMessage__inner">
+            <p className="homeTrustMessage__bullets" aria-label="No-friction promises">
+              <span>No phone number required.</span>
+              <span>No login needed.</span>
+              <span>No spam — ever.</span>
+            </p>
+
+            <p className="homeTrustMessage__headline">Just select your phone model</p>
+            <p className="homeTrustMessage__sub">
+              and instantly view prices for all issues.
+            </p>
+          </div>
+        </section>
+
         {/* Brand selection section (CTA scroll target) */}
         <section id="brand-selection" className="section" style={{ paddingTop: 26 }}>
           <div className="sectionHeader">
