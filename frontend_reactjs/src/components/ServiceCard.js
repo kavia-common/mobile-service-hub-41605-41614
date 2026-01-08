@@ -1,11 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { encodeBrandToSearch, persistSelectedBrand } from "../utils/brandSelection";
 
 // PUBLIC_INTERFACE
-export default function ServiceCard({ service }) {
-  /** Service card used in grids and lists. */
+export default function ServiceCard({ service, selectedBrand = "" }) {
+  /** Service card used in grids and lists; carries selected brand into Booking. */
   const price = service?.priceFrom != null ? `$${service.priceFrom}+` : "Quote";
   const eta = service?.eta || "Varies";
+
+  const brand = String(selectedBrand || "").trim();
 
   return (
     <article className="card serviceCard">
@@ -33,7 +36,15 @@ export default function ServiceCard({ service }) {
         <Link to={`/services/${service?.id || ""}`} className="btn btn--soft">
           Details
         </Link>
-        <Link to="/booking" className="btn btn--primary">
+
+        <Link
+          to={`/booking${encodeBrandToSearch(brand)}`}
+          state={brand ? { selectedBrand: brand } : undefined}
+          className="btn btn--primary"
+          onClick={() => {
+            if (brand) persistSelectedBrand(brand);
+          }}
+        >
           Book
         </Link>
       </div>

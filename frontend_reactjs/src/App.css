@@ -593,6 +593,103 @@ a { color: inherit; text-decoration: none; }
   gap: 12px;
 }
 
+/* 02.03: Large, tap-friendly brand cards (Home -> Services preselected) */
+.brandBigGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.brandBigCard {
+  width: 100%;
+  text-align: left;
+
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 16px;
+
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease, background 140ms ease;
+}
+
+.brandBigCard:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(37, 99, 235, 0.25);
+  background: linear-gradient(180deg, rgba(249, 250, 251, 1), rgba(37, 99, 235, 0.06));
+}
+
+.brandBigCard:active {
+  transform: none;
+}
+
+.brandBigCard:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.16), var(--shadow-md);
+  border-color: rgba(37, 99, 235, 0.35);
+}
+
+.brandBigCard__inner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brandBigCard__mark {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  color: var(--primary);
+  background: rgba(37, 99, 235, 0.10);
+  border: 1px solid rgba(37, 99, 235, 0.18);
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+
+.brandBigCard__logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Ensure Apple logo renders correctly (the SVG uses currentColor in this asset set). */
+.brandBigCard__logo[alt="Apple logo"] {
+  color: #FFFFFF;
+}
+
+.brandBigCard__initial {
+  line-height: 1;
+  font-size: 1.2rem;
+}
+
+.brandBigCard__text {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.brandBigCard__name {
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  font-size: 1.05rem;
+}
+
+.brandBigCard__hint {
+  color: var(--muted);
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+
+/* Keep old small brand card styles for any remaining usage (backward-compatible) */
 .brandCard {
   padding: 14px;
   transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
@@ -971,6 +1068,7 @@ a { color: inherit; text-decoration: none; }
   .twoCol { grid-template-columns: 1fr; }
 
   .brandGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .brandBigGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 @media (max-width: 720px) {
@@ -999,4 +1097,5 @@ a { color: inherit; text-decoration: none; }
   .grid { grid-template-columns: 1fr; }
   .form__grid { grid-template-columns: 1fr; }
   .brandGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .brandBigGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
