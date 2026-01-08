@@ -201,6 +201,17 @@ a { color: inherit; text-decoration: none; }
   }
 }
 
+/* Header container:
+   - Ensures navbar content doesn't hug screen edges on large displays
+   - Keeps the fixed/sticky behavior on the outer .nav element
+   - Uses the same sizing tokens as .container for consistency */
+.nav__container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--pad-x);
+}
+
 .nav__inner {
   height: 70px;
   display: flex;

@@ -193,36 +193,38 @@ export default function Navbar() {
       className={`nav nav--minimal nav--fixed ${isHidden ? "nav--hidden" : ""}`}
       data-hidden={isHidden ? "true" : "false"}
     >
-      <div className="container nav__inner nav__inner--minimal">
-        <div className="nav__brand nav__brand--minimal">
-          <span className="nav__logo" aria-hidden="true">
-            MS
-          </span>
-          <div className="nav__brandText">
-            <div className="nav__title">Mobile Service Hub</div>
+      <div className="nav__container">
+        <div className="nav__inner nav__inner--minimal">
+          <div className="nav__brand nav__brand--minimal">
+            <span className="nav__logo" aria-hidden="true">
+              MS
+            </span>
+            <div className="nav__brandText">
+              <div className="nav__title">Mobile Service Hub</div>
+            </div>
           </div>
-        </div>
 
-        <div className="nav__right nav__right--minimal" aria-label="Contact actions">
-          {/* Note: placeholders - replace numbers/links when available */}
-          <a className="nav__iconLink nav__iconLink--premium" href="tel:+15550102020" aria-label="Call">
-            <span className="nav__iconFx" aria-hidden="true">
-              <PhoneIcon />
-            </span>
-          </a>
+          <div className="nav__right nav__right--minimal" aria-label="Contact actions">
+            {/* Note: placeholders - replace numbers/links when available */}
+            <a className="nav__iconLink nav__iconLink--premium" href="tel:+15550102020" aria-label="Call">
+              <span className="nav__iconFx" aria-hidden="true">
+                <PhoneIcon />
+              </span>
+            </a>
 
-          <a
-            className="nav__iconLink nav__iconLink--premium"
-            href="https://wa.me/15550102020"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="WhatsApp"
-            title="WhatsApp"
-          >
-            <span className="nav__iconFx" aria-hidden="true">
-              <WhatsAppIcon />
-            </span>
-          </a>
+            <a
+              className="nav__iconLink nav__iconLink--premium"
+              href="https://wa.me/15550102020"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="WhatsApp"
+              title="WhatsApp"
+            >
+              <span className="nav__iconFx" aria-hidden="true">
+                <WhatsAppIcon />
+              </span>
+            </a>
+          </div>
         </div>
       </div>
     </header>
