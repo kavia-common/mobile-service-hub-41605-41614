@@ -81,28 +81,29 @@ export default function Home() {
             <div className="homeHero__actions">
               <button
                 type="button"
-                className="btn btn--primary btn--large homeHero__cta"
+                className="btn btn--primary homeHero__cta homeHero__cta--primary"
                 onClick={scrollToBrandSelection}
               >
                 Select Your Phone Model
               </button>
-            </div>
 
-            <div className="homeHero__finePrint">
-              No login required • Doorstep service available
-              <span style={{ display: "inline-block", width: 10 }} aria-hidden="true" />
-              <button
-                type="button"
-                className="btn btn--ghost"
-                onClick={scrollToMapSection}
-                style={{
-                  marginLeft: 10,
-                  borderColor: "rgba(255,255,255,0.25)",
-                  color: "rgba(255,255,255,0.92)"
-                }}
-              >
-                See tracking preview
-              </button>
+              <div className="homeHero__belowCta">
+                <div className="homeHero__finePrint">
+                  No login required • Doorstep service available
+                </div>
+
+                <button
+                  type="button"
+                  className="btn btn--ghost homeHero__ctaSecondary"
+                  onClick={scrollToMapSection}
+                  style={{
+                    borderColor: "rgba(255,255,255,0.25)",
+                    color: "rgba(255,255,255,0.92)"
+                  }}
+                >
+                  See tracking preview
+                </button>
+              </div>
             </div>
           </div>
         </div>
