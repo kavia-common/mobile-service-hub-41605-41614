@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
 import BrandCard from "../components/BrandCard";
 
@@ -26,15 +26,43 @@ const popularBrands = [
   { name: "LG", logoSrc: lgLogo, logoAlt: "LG logo" }
 ];
 
+/**
+ * Map section (MVP):
+ * - Uses a static demo route in Bangalore via Google Maps "directions" embed.
+ * - No login and no real-time GPS tracking required.
+ *
+ * If you later want browser-based location:
+ * - you can read navigator.geolocation and dynamically build an embed URL.
+ * - keep it optional and failure-tolerant (permission denied, unsupported, etc).
+ */
+
 // PUBLIC_INTERFACE
 export default function Home() {
-  /** Home page with premium, minimal hero + brand quick-pick. */
+  /** Home page with premium, minimal hero + brand quick-pick + trust-building map section. */
 
   const scrollToBrandSelection = () => {
     const el = document.getElementById("brand-selection");
     if (!el) return;
     el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
+
+  const scrollToMapSection = () => {
+    const el = document.getElementById("repair-tracking");
+    if (!el) return;
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const mapEmbedSrc = useMemo(() => {
+    // Demo route in Bangalore:
+    // - Origin: a "Service Center" like point (Koramangala)
+    // - Destination: the "You" location (MG Road)
+    //
+    // Google Maps embed doesn't let us rename markers, so we provide an accessible legend below
+    // matching the requirements ("Service Center" and "You").
+    const origin = encodeURIComponent("Koramangala, Bengaluru, Karnataka");
+    const destination = encodeURIComponent("MG Road, Bengaluru, Karnataka");
+    return `https://www.google.com/maps?output=embed&dirflg=d&saddr=${origin}&daddr=${destination}`;
+  }, []);
 
   return (
     <main className="home">
@@ -62,12 +90,131 @@ export default function Home() {
 
             <div className="homeHero__finePrint">
               No login required • Doorstep service available
+              <span style={{ display: "inline-block", width: 10 }} aria-hidden="true" />
+              <button
+                type="button"
+                className="btn btn--ghost"
+                onClick={scrollToMapSection}
+                style={{
+                  marginLeft: 10,
+                  borderColor: "rgba(255,255,255,0.25)",
+                  color: "rgba(255,255,255,0.92)"
+                }}
+              >
+                See tracking preview
+              </button>
             </div>
           </div>
         </div>
       </section>
 
       <div className="container">
+        {/* MAP + TRUST INDICATORS (per attached requirements) */}
+        <section id="repair-tracking" className="section" aria-label="Repair tracking map">
+          <h2 className="homeMap__title">Your Device Is Handled Securely — Tracked in Real Time</h2>
+
+          <div className="homeMap__wrap card">
+            <div className="homeMap__frame" aria-label="Demo route map from Service Center to you">
+              <iframe
+                title="Demo repair route map"
+                src={mapEmbedSrc}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                style={{ border: 0 }}
+                allowFullScreen
+              />
+            </div>
+
+            <div className="homeMap__legend" aria-label="Map marker legend">
+              <div className="homeMap__legendItem">
+                <span className="homeMap__pin homeMap__pin--center" aria-hidden="true" />
+                <span><strong>Service Center</strong> (demo)</span>
+              </div>
+              <div className="homeMap__legendItem">
+                <span className="homeMap__pin homeMap__pin--you" aria-hidden="true" />
+                <span><strong>You</strong> (demo)</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="homeTrustGrid" role="list" aria-label="Trust indicators">
+            <div className="card homeTrustCard" role="listitem">
+              <div className="homeTrustCard__icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24">
+                  <path
+                    d="M12 3.8c-3.9 0-7 3.1-7 7 0 3.9 3.1 7 7 7s7-3.1 7-7c0-3.9-3.1-7-7-7z"
+                    fill="none"
+                    stroke="rgba(37,99,235,0.9)"
+                    strokeWidth="2"
+                  />
+                  <path
+                    d="M12 7.2v5.1l3.1 2.0"
+                    fill="none"
+                    stroke="rgba(245,158,11,0.95)"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+              <div className="homeTrustCard__text">Live Repair Tracking</div>
+            </div>
+
+            <div className="card homeTrustCard" role="listitem">
+              <div className="homeTrustCard__icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24">
+                  <path
+                    d="M12 2.8l7 3.4v6.4c0 5-3 8.2-7 9.6-4-1.4-7-4.6-7-9.6V6.2l7-3.4z"
+                    fill="none"
+                    stroke="rgba(37,99,235,0.9)"
+                    strokeWidth="2"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M9.3 12.0l1.8 1.8 3.6-3.9"
+                    fill="none"
+                    stroke="rgba(245,158,11,0.95)"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+              <div className="homeTrustCard__text">Secure Pickup & Delivery</div>
+            </div>
+
+            <div className="card homeTrustCard" role="listitem">
+              <div className="homeTrustCard__icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24">
+                  <path
+                    d="M7 7.5h10"
+                    fill="none"
+                    stroke="rgba(37,99,235,0.9)"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M8.4 4.8h7.2"
+                    fill="none"
+                    stroke="rgba(37,99,235,0.5)"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M6.6 10.1c-1.3 1.2-2.1 2.9-2.1 4.7 0 3.6 3.4 6.5 7.5 6.5s7.5-2.9 7.5-6.5c0-1.8-.8-3.5-2.1-4.7"
+                    fill="none"
+                    stroke="rgba(245,158,11,0.95)"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+              <div className="homeTrustCard__text">60-Minute Repair Service</div>
+            </div>
+          </div>
+        </section>
+
         {/* Brand selection section (CTA scroll target) */}
         <section id="brand-selection" className="section" style={{ paddingTop: 26 }}>
           <div className="sectionHeader">
