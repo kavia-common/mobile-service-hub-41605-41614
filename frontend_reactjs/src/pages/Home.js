@@ -28,35 +28,60 @@ const popularBrands = [
 
 // PUBLIC_INTERFACE
 export default function Home() {
-  /** Simplified Home page for public users with a clear step-based flow + brand quick-pick (02.03). */
+  /** Home page with premium, minimal hero + brand quick-pick. */
+
+  const scrollToBrandSelection = () => {
+    const el = document.getElementById("brand-selection");
+    if (!el) return;
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
-    <main className="section">
-      <div className="container">
-        <header className="card" style={{ padding: 22 }}>
-          <div className="pill pill--soft">Mobile Service Hub</div>
-          <h1 className="h1" style={{ marginTop: 10 }}>Book a repair in 3 simple steps</h1>
-          <p className="muted" style={{ marginTop: 6, lineHeight: 1.6 }}>
-            Tell us what device you have, what’s wrong, and how to reach you. We’ll confirm the details and next steps.
-          </p>
+    <main className="home">
+      {/* Premium hero (per spec) */}
+      <section className="homeHero" aria-label="Hero">
+        <div className="homeHero__bg" aria-hidden="true" />
+        <div className="homeHero__overlay" aria-hidden="true" />
 
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 16 }}>
-            <Link to="/booking" className="btn btn--primary btn--large">
-              Start booking
-            </Link>
-            <Link to="/support" className="btn btn--ghost btn--large">
-              I have a question
-            </Link>
+        <div className="container homeHero__inner">
+          <div className="homeHero__content">
+            <h1 className="homeHero__title">Trusted Mobile Repair Services Near You</h1>
+            <p className="homeHero__subtitle">
+              Fast, reliable phone repair for all major brands. Book your service in minutes.
+            </p>
+
+            <div className="homeHero__actions">
+              <button
+                type="button"
+                className="btn btn--primary btn--large homeHero__cta"
+                onClick={scrollToBrandSelection}
+              >
+                Select Your Phone Model
+              </button>
+            </div>
+
+            <div className="homeHero__finePrint">
+              No login required • Doorstep service available
+            </div>
           </div>
-        </header>
+        </div>
+      </section>
 
-        {/* 02.03 Brand section: large tap-friendly cards */}
-        <section className="section" style={{ paddingTop: 22 }}>
+      <div className="container">
+        {/* Brand selection section (CTA scroll target) */}
+        <section id="brand-selection" className="section" style={{ paddingTop: 26 }}>
           <div className="sectionHeader">
             <div>
               <h2 className="h2">Choose your brand</h2>
               <p className="muted" style={{ marginTop: 6, lineHeight: 1.6 }}>
                 Tap a brand to see relevant services. Your selection will carry into booking.
               </p>
+            </div>
+
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+              <Link to="/services" className="btn btn--ghost">
+                Browse services
+              </Link>
             </div>
           </div>
 

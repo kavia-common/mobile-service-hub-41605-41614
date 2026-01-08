@@ -521,6 +521,156 @@ a { color: inherit; text-decoration: none; }
 
 
 
+/* Minimal navbar variant (homepage spec): logo + call/whatsapp only */
+.nav--minimal {
+  background: rgba(17, 24, 39, 0.22);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(10px);
+}
+
+.nav__inner--minimal {
+  height: 64px;
+}
+
+.nav__brand--minimal .nav__title {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.nav__brand--minimal .nav__logo {
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.25);
+}
+
+.nav__right--minimal {
+  gap: 10px;
+}
+
+.nav__iconLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.92);
+  text-decoration: none;
+  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav__iconLink:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.10);
+  border-color: rgba(255, 255, 255, 0.20);
+}
+
+.nav__iconLink:active {
+  transform: none;
+}
+
+.nav__iconLink:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.22);
+}
+
+/* Simple WhatsApp text badge (keeps zero-deps approach) */
+.nav__iconLink .nav__icon {
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+/* Premium full-width hero (homepage redesign spec) */
+.home {
+  display: block;
+}
+
+.homeHero {
+  position: relative;
+  width: 100%;
+  min-height: clamp(460px, 64vh, 680px);
+  display: grid;
+  align-items: center;
+
+  /* Let the hero be full-bleed even though internal content uses .container */
+  padding: 22px 0 34px;
+  overflow: hidden;
+}
+
+.homeHero__bg {
+  position: absolute;
+  inset: 0;
+
+  /* Use a single background image (can be replaced later with a real asset).
+     Kept as remote for now to avoid adding binary files. */
+  background-image: url("https://images.unsplash.com/photo-1588702547923-7093a6c3ba33?auto=format&fit=crop&w=2400&q=60");
+  background-size: cover;
+  background-position: center;
+
+  /* Blur slightly so it doesn't distract from text */
+  filter: blur(4px) saturate(0.9);
+  transform: scale(1.05);
+}
+
+.homeHero__overlay {
+  position: absolute;
+  inset: 0;
+
+  /* Dark overlay + subtle vignette */
+  background:
+    radial-gradient(900px 560px at 50% 25%, rgba(37, 99, 235, 0.18), rgba(0, 0, 0, 0.0) 55%),
+    radial-gradient(1200px 800px at 50% 20%, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.60) 72%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.60));
+}
+
+.homeHero__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+}
+
+.homeHero__content {
+  text-align: center;
+  max-width: 820px;
+  padding: 18px 0;
+}
+
+.homeHero__title {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.96);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  font-size: clamp(2.25rem, 4.6vw, 3.25rem);
+}
+
+.homeHero__subtitle {
+  margin: 14px 0 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-weight: 600;
+  line-height: 1.6;
+  font-size: clamp(1.0rem, 2.2vw, 1.15rem);
+}
+
+.homeHero__actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 22px;
+}
+
+.homeHero__cta {
+  min-width: min(420px, 100%);
+}
+
+.homeHero__finePrint {
+  margin-top: 14px;
+  color: rgba(255, 255, 255, 0.70);
+  font-weight: 700;
+  font-size: 0.86rem;
+}
+
+/* Keep old hero styles for any other pages still using .hero component */
 .hero {
   padding: 42px 0 10px;
 }
