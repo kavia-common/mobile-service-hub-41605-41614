@@ -218,7 +218,7 @@ export default function Home() {
 
         {/* Trust message section (between Map and Brand sections, per spec) */}
         <section className="homeTrustMessage section" aria-label="No-friction trust message">
-          <div className="homeTrustMessage__inner">
+          <div className="homeTrustMessage__content">
             <p className="homeTrustMessage__bullets" aria-label="No-friction promises">
               <span>No phone number required.</span>
               <span>No login needed.</span>
@@ -226,9 +226,7 @@ export default function Home() {
             </p>
 
             <p className="homeTrustMessage__headline">Just select your phone model</p>
-            <p className="homeTrustMessage__sub">
-              and instantly view prices for all issues.
-            </p>
+            <p className="homeTrustMessage__sub">and instantly view prices for all issues.</p>
           </div>
         </section>
 
