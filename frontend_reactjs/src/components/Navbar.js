@@ -97,13 +97,49 @@ function WhatsAppIcon() {
  *
  * Refinements for smoothness:
  * - Hysteresis: larger threshold to hide than to show, so tiny jitter doesn't flip state.
- * - Time throttle: ensure state changes can only happen at most every N ms.
+ * - Time/velocity gating: ignores tiny, low-intent movement (especially on mobile momentum).
  * - Top "dead-zone": always show for the first few pixels for predictability.
+ * - Settle timer: after a hide, we require a brief "settle" before allowing a show;
+ *   this prevents immediate re-show during overscroll/bounce/momentum.
  */
-const SCROLL_HIDE_DELTA_PX = 18; // require a more intentional downward scroll before hiding
-const SCROLL_SHOW_DELTA_PX = 10; // slightly easier to show once user scrolls up
-const SCROLL_TOP_DEADZONE_PX = 12; // always show near top
-const SCROLL_TOGGLE_THROTTLE_MS = 140; // reduce flicker by limiting toggle frequency
+const SCROLL_HIDE_DELTA_PX_DESKTOP = 20;
+const SCROLL_SHOW_DELTA_PX_DESKTOP = 12;
+
+const SCROLL_HIDE_DELTA_PX_MOBILE = 28;
+const SCROLL_SHOW_DELTA_PX_MOBILE = 16;
+
+/**
+ * Ignore tiny deltas entirely (trackpad jitter / iOS bounce micro-movements).
+ * This is intentionally small so "real" scroll still feels responsive.
+ */
+const SCROLL_IGNORE_DELTA_PX = 2;
+
+/**
+ * Always show near top; slightly larger than before to reduce "flicker"
+ * when a user is at the top and lightly nudges the page.
+ */
+const SCROLL_TOP_DEADZONE_PX = 18;
+
+/**
+ * Throttle toggle frequency so the navbar never flickers during momentum.
+ * Mobile uses a slightly longer throttle to compensate for stronger inertial scroll.
+ */
+const SCROLL_TOGGLE_THROTTLE_MS_DESKTOP = 140;
+const SCROLL_TOGGLE_THROTTLE_MS_MOBILE = 180;
+
+/**
+ * After hiding, require a short "settle" before allowing show. Helps prevent:
+ * - bounce at scroll end
+ * - tiny direction changes during momentum deceleration
+ */
+const SCROLL_AFTER_HIDE_SETTLE_MS_DESKTOP = 120;
+const SCROLL_AFTER_HIDE_SETTLE_MS_MOBILE = 160;
+
+/**
+ * If no scroll events happen for a bit, we reset the accumulator so that
+ * the next tiny nudge doesn't "inherit" previous momentum.
+ */
+const SCROLL_IDLE_RESET_MS = 220;
 
 // PUBLIC_INTERFACE
 export default function Navbar() {
@@ -117,11 +153,40 @@ export default function Navbar() {
   // Accumulate scroll delta until it exceeds a threshold (prevents "micro scroll" jitter toggles)
   const accDeltaRef = useRef(0);
 
-  // Small throttle between toggles so it never rapidly flickers during momentum scroll
+  // Toggle gating
   const lastToggleTsRef = useRef(0);
+  const lastScrollTsRef = useRef(0);
+
+  // Timer to reset accumulator after scroll stops
+  const idleResetTimerRef = useRef(null);
+
+  // When we hide, block showing until this timestamp (prevents immediate bounce re-show)
+  const blockShowUntilTsRef = useRef(0);
 
   useEffect(() => {
     lastYRef.current = window.scrollY || 0;
+
+    const isMobile = () =>
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      window.matchMedia("(max-width: 720px)").matches;
+
+    const getThresholds = () => {
+      const mobile = isMobile();
+      return {
+        hideDelta: mobile ? SCROLL_HIDE_DELTA_PX_MOBILE : SCROLL_HIDE_DELTA_PX_DESKTOP,
+        showDelta: mobile ? SCROLL_SHOW_DELTA_PX_MOBILE : SCROLL_SHOW_DELTA_PX_DESKTOP,
+        throttleMs: mobile ? SCROLL_TOGGLE_THROTTLE_MS_MOBILE : SCROLL_TOGGLE_THROTTLE_MS_DESKTOP,
+        settleAfterHideMs: mobile ? SCROLL_AFTER_HIDE_SETTLE_MS_MOBILE : SCROLL_AFTER_HIDE_SETTLE_MS_DESKTOP
+      };
+    };
+
+    const scheduleIdleReset = () => {
+      if (idleResetTimerRef.current) window.clearTimeout(idleResetTimerRef.current);
+      idleResetTimerRef.current = window.setTimeout(() => {
+        accDeltaRef.current = 0;
+      }, SCROLL_IDLE_RESET_MS);
+    };
 
     const onScroll = () => {
       // Use rAF to avoid doing setState for every scroll event.
@@ -135,13 +200,24 @@ export default function Navbar() {
         const dy = y - lastY;
         lastYRef.current = y;
 
+        const now = Date.now();
+        lastScrollTsRef.current = now;
+        scheduleIdleReset();
+
         // Always show near the very top for better discoverability/predictability.
         if (y <= SCROLL_TOP_DEADZONE_PX) {
           accDeltaRef.current = 0;
+          blockShowUntilTsRef.current = 0;
           if (hiddenRef.current) {
             hiddenRef.current = false;
             setIsHidden(false);
           }
+          tickingRef.current = false;
+          return;
+        }
+
+        // Ignore very small deltas (prevents jitter toggles).
+        if (Math.abs(dy) <= SCROLL_IGNORE_DELTA_PX) {
           tickingRef.current = false;
           return;
         }
@@ -157,20 +233,23 @@ export default function Navbar() {
         }
 
         const acc = accDeltaRef.current;
-        const now = Date.now();
+
+        const { hideDelta, showDelta, throttleMs, settleAfterHideMs } = getThresholds();
 
         // Only allow toggling every so often (throttle).
-        const canToggle = now - lastToggleTsRef.current >= SCROLL_TOGGLE_THROTTLE_MS;
+        const canToggle = now - lastToggleTsRef.current >= throttleMs;
 
         // Apply hysteresis based on current state.
         let nextHidden = hiddenRef.current;
 
         if (!hiddenRef.current) {
           // Currently visible: only hide after a more intentional downward scroll.
-          if (acc > SCROLL_HIDE_DELTA_PX) nextHidden = true;
+          if (acc > hideDelta) nextHidden = true;
         } else {
-          // Currently hidden: show after user scrolls up a bit.
-          if (acc < -SCROLL_SHOW_DELTA_PX) nextHidden = false;
+          // Currently hidden: show after user scrolls up a bit,
+          // but not during the "settle" window after a hide.
+          const canShowAfterHide = now >= blockShowUntilTsRef.current;
+          if (canShowAfterHide && acc < -showDelta) nextHidden = false;
         }
 
         if (nextHidden !== hiddenRef.current && canToggle) {
@@ -178,6 +257,11 @@ export default function Navbar() {
           setIsHidden(nextHidden);
           lastToggleTsRef.current = now;
           accDeltaRef.current = 0; // reset after state change to avoid immediate re-toggle
+
+          if (nextHidden) {
+            // We just hid: block re-show briefly to avoid bounce/momentum flicker.
+            blockShowUntilTsRef.current = now + settleAfterHideMs;
+          }
         }
 
         tickingRef.current = false;
@@ -185,7 +269,10 @@ export default function Navbar() {
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (idleResetTimerRef.current) window.clearTimeout(idleResetTimerRef.current);
+    };
   }, []);
 
   return (
