@@ -94,9 +94,16 @@ function WhatsAppIcon() {
  * - We keep the navbar fixed (overlay) so it never affects document flow => no layout shift.
  * - On scroll down: hide (translateY out of viewport).
  * - On scroll up: show.
- * - Add a small threshold so minor touch jitter doesn't toggle visibility.
+ *
+ * Refinements for smoothness:
+ * - Hysteresis: larger threshold to hide than to show, so tiny jitter doesn't flip state.
+ * - Time throttle: ensure state changes can only happen at most every N ms.
+ * - Top "dead-zone": always show for the first few pixels for predictability.
  */
-const SCROLL_DELTA_PX = 6;
+const SCROLL_HIDE_DELTA_PX = 18; // require a more intentional downward scroll before hiding
+const SCROLL_SHOW_DELTA_PX = 10; // slightly easier to show once user scrolls up
+const SCROLL_TOP_DEADZONE_PX = 12; // always show near top
+const SCROLL_TOGGLE_THROTTLE_MS = 140; // reduce flicker by limiting toggle frequency
 
 // PUBLIC_INTERFACE
 export default function Navbar() {
@@ -106,6 +113,12 @@ export default function Navbar() {
   const lastYRef = useRef(0);
   const tickingRef = useRef(false);
   const hiddenRef = useRef(false);
+
+  // Accumulate scroll delta until it exceeds a threshold (prevents "micro scroll" jitter toggles)
+  const accDeltaRef = useRef(0);
+
+  // Small throttle between toggles so it never rapidly flickers during momentum scroll
+  const lastToggleTsRef = useRef(0);
 
   useEffect(() => {
     lastYRef.current = window.scrollY || 0;
@@ -122,8 +135,9 @@ export default function Navbar() {
         const dy = y - lastY;
         lastYRef.current = y;
 
-        // Always show near the very top for better discoverability.
-        if (y <= 2) {
+        // Always show near the very top for better discoverability/predictability.
+        if (y <= SCROLL_TOP_DEADZONE_PX) {
+          accDeltaRef.current = 0;
           if (hiddenRef.current) {
             hiddenRef.current = false;
             setIsHidden(false);
@@ -132,18 +146,38 @@ export default function Navbar() {
           return;
         }
 
-        // Ignore small movements to avoid distracting toggling while browsing.
-        if (Math.abs(dy) < SCROLL_DELTA_PX) {
-          tickingRef.current = false;
-          return;
+        // Accumulate deltas; reset accumulator when direction flips.
+        const prevAcc = accDeltaRef.current;
+        if (prevAcc === 0) {
+          accDeltaRef.current = dy;
+        } else if ((prevAcc > 0 && dy > 0) || (prevAcc < 0 && dy < 0)) {
+          accDeltaRef.current = prevAcc + dy;
+        } else {
+          accDeltaRef.current = dy;
         }
 
-        // Scroll down => hide, Scroll up => show.
-        const shouldHide = dy > 0;
+        const acc = accDeltaRef.current;
+        const now = Date.now();
 
-        if (shouldHide !== hiddenRef.current) {
-          hiddenRef.current = shouldHide;
-          setIsHidden(shouldHide);
+        // Only allow toggling every so often (throttle).
+        const canToggle = now - lastToggleTsRef.current >= SCROLL_TOGGLE_THROTTLE_MS;
+
+        // Apply hysteresis based on current state.
+        let nextHidden = hiddenRef.current;
+
+        if (!hiddenRef.current) {
+          // Currently visible: only hide after a more intentional downward scroll.
+          if (acc > SCROLL_HIDE_DELTA_PX) nextHidden = true;
+        } else {
+          // Currently hidden: show after user scrolls up a bit.
+          if (acc < -SCROLL_SHOW_DELTA_PX) nextHidden = false;
+        }
+
+        if (nextHidden !== hiddenRef.current && canToggle) {
+          hiddenRef.current = nextHidden;
+          setIsHidden(nextHidden);
+          lastToggleTsRef.current = now;
+          accDeltaRef.current = 0; // reset after state change to avoid immediate re-toggle
         }
 
         tickingRef.current = false;
