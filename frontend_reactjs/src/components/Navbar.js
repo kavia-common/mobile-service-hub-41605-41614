@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 /**
  * Inline SVG icons (no external deps) with gradient strokes for a premium look.
@@ -89,12 +89,76 @@ function WhatsAppIcon() {
   );
 }
 
+/**
+ * Scroll-hide navbar behavior notes:
+ * - We keep the navbar fixed (overlay) so it never affects document flow => no layout shift.
+ * - On scroll down: hide (translateY out of viewport).
+ * - On scroll up: show.
+ * - Add a small threshold so minor touch jitter doesn't toggle visibility.
+ */
+const SCROLL_DELTA_PX = 6;
+
 // PUBLIC_INTERFACE
 export default function Navbar() {
-  /** Minimal top bar: brand on left + call/WhatsApp quick actions on right. */
+  /** Minimal top bar: brand on left + call/WhatsApp quick actions on right, with scroll-aware hide/show. */
+  const [isHidden, setIsHidden] = useState(false);
+
+  const lastYRef = useRef(0);
+  const tickingRef = useRef(false);
+  const hiddenRef = useRef(false);
+
+  useEffect(() => {
+    lastYRef.current = window.scrollY || 0;
+
+    const onScroll = () => {
+      // Use rAF to avoid doing setState for every scroll event.
+      if (tickingRef.current) return;
+      tickingRef.current = true;
+
+      window.requestAnimationFrame(() => {
+        const y = window.scrollY || 0;
+        const lastY = lastYRef.current;
+
+        const dy = y - lastY;
+        lastYRef.current = y;
+
+        // Always show near the very top for better discoverability.
+        if (y <= 2) {
+          if (hiddenRef.current) {
+            hiddenRef.current = false;
+            setIsHidden(false);
+          }
+          tickingRef.current = false;
+          return;
+        }
+
+        // Ignore small movements to avoid distracting toggling while browsing.
+        if (Math.abs(dy) < SCROLL_DELTA_PX) {
+          tickingRef.current = false;
+          return;
+        }
+
+        // Scroll down => hide, Scroll up => show.
+        const shouldHide = dy > 0;
+
+        if (shouldHide !== hiddenRef.current) {
+          hiddenRef.current = shouldHide;
+          setIsHidden(shouldHide);
+        }
+
+        tickingRef.current = false;
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="nav nav--minimal">
+    <header
+      className={`nav nav--minimal nav--fixed ${isHidden ? "nav--hidden" : ""}`}
+      data-hidden={isHidden ? "true" : "false"}
+    >
       <div className="container nav__inner nav__inner--minimal">
         <div className="nav__brand nav__brand--minimal">
           <span className="nav__logo" aria-hidden="true">
