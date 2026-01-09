@@ -1,6 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="Motorola logo">
-  <rect width="128" height="128" rx="28" fill="rgba(37,99,235,0.10)"/>
-  <circle cx="64" cy="60" r="34" fill="#2563EB"/>
-  <path d="M44 76V52c0-6 4-10 10-10 5 0 9 3 10 7 1-4 5-7 10-7 6 0 10 4 10 10v24h-8V54c0-2-2-4-4-4-3 0-4 2-4 4v22h-8V54c0-2-2-4-4-4-3 0-4 2-4 4v22h-8z" fill="#ffffff"/>
-  <text x="64" y="114" text-anchor="middle" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#6B7280">Motorola</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 96" role="img" aria-label="Motorola logo">
+  <title>Motorola</title>
+  <!--
+    Full-color Motorola-style mark optimized for light backgrounds:
+    - Red roundel with simplified white "batwing" silhouette.
+    - Wide viewBox matches other logos so the grid's max-width/max-height rules produce consistent sizing.
+  -->
+  <g>
+    <circle cx="72" cy="48" r="28" fill="#E1142D"/>
+    <!-- Simplified "batwing" -->
+    <path
+      d="M52 58V40c0-6.5 4.8-11 12-11 5.8 0 10.1 2.7 12.0 7.0 1.9-4.3 6.2-7.0 12.0-7.0 7.2 0 12 4.5 12 11v18h-10V41c0-2.4-2-4.2-4.6-4.2-3.0 0-5.0 2.0-5.0 4.8v16.4h-9.6V41.6c0-2.8-2.0-4.8-5.0-4.8-2.6 0-4.6 1.8-4.6 4.2v17h-10z"
+      fill="#FFFFFF"
+    />
+    <!-- Optional wordmark hint kept minimal (not required by grid); leave out to avoid visual weight imbalance -->
+  </g>
 </svg>

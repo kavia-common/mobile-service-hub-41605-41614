@@ -1,15 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Oppo logo">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 96" role="img" aria-label="Oppo logo">
   <title>Oppo</title>
   <!--
-    Minimal, scalable Oppo-style wordmark rendered with stroke outlines.
-    Uses currentColor so it adapts to the app theme and matches existing logo behavior.
+    Full-color, light-background optimized Oppo-style wordmark.
+    Notes:
+    - Uses a wide, consistent viewBox so the premium grid scales logos uniformly via object-fit:contain.
+    - Fill uses a brand-green approximation that reads correctly on light surfaces.
   -->
-  <g fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="#1BAA4A">
     <!-- O -->
-    <path d="M40 128c0-33.1 18.9-60 54-60s54 26.9 54 60-18.9 60-54 60-54-26.9-54-60z"/>
+    <path d="M49 20c-17.7 0-31 13.5-31 28s13.3 28 31 28 31-13.5 31-28-13.3-28-31-28zm0 11c10.9 0 19 8.1 19 17s-8.1 17-19 17-19-8.1-19-17 8.1-17 19-17z"/>
     <!-- P -->
-    <path d="M132 188V68h40c22.1 0 40 17.9 40 40s-17.9 40-40 40h-40"/>
-    <!-- P (second) -->
-    <path d="M196 188V68h30c16.6 0 30 13.4 30 30s-13.4 30-30 30h-30"/>
+    <path d="M96 20h35c14.1 0 25 9.2 25 22s-10.9 22-25 22h-23v12H96V20zm12 11v22h21c7.1 0 12-4.3 12-11s-4.9-11-12-11h-21z"/>
+    <!-- P -->
+    <path d="M164 20h35c14.1 0 25 9.2 25 22s-10.9 22-25 22h-23v12h-12V20zm12 11v22h21c7.1 0 12-4.3 12-11s-4.9-11-12-11h-21z"/>
   </g>
 </svg>
