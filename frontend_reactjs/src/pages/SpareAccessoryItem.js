@@ -130,9 +130,9 @@ export default function SpareAccessoryItem() {
         <section aria-label="Select your brand" style={{ paddingTop: 6 }}>
           <div className="sectionHeader" style={{ marginBottom: 14 }}>
             <div>
-              <h2 className="h2">Choose your brand</h2>
+              <h2 className="h2">Select your brand</h2>
               <p className="muted" style={{ marginTop: 6, lineHeight: 1.6 }}>
-                Your selection will carry forward to browse services.
+                Next, pick your brand to see compatible options and related services.
               </p>
             </div>
           </div>
@@ -140,7 +140,14 @@ export default function SpareAccessoryItem() {
           <div className="brandBigGrid" role="list" aria-label="Popular brands">
             {popularBrands.map((b) => (
               <div role="listitem" key={b.name}>
-                <BrandCard name={b.name} logoSrc={b.logoSrc} logoAlt={b.logoAlt} />
+                <BrandCard
+                  name={b.name}
+                  logoSrc={b.logoSrc}
+                  logoAlt={b.logoAlt}
+                  helperText={`See ${b.name} compatible parts & accessories.`}
+                  secondaryActionLabel="View"
+                  showSecondaryAction
+                />
               </div>
             ))}
           </div>

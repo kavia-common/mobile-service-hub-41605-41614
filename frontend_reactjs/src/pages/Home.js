@@ -324,7 +324,7 @@ export default function Home() {
             <div>
               <h2 className="h2">Choose your brand</h2>
               <p className="muted" style={{ marginTop: 6, lineHeight: 1.6 }}>
-                Tap a brand to see relevant services. Your selection will carry into booking.
+                Select a brand to view compatible services and pricing.
               </p>
             </div>
 
@@ -338,7 +338,14 @@ export default function Home() {
           <div className="brandBigGrid" role="list" aria-label="Popular brands">
             {popularBrands.map((b) => (
               <div role="listitem" key={b.name}>
-                <BrandCard name={b.name} logoSrc={b.logoSrc} logoAlt={b.logoAlt} />
+                <BrandCard
+                  name={b.name}
+                  logoSrc={b.logoSrc}
+                  logoAlt={b.logoAlt}
+                  helperText="Instantly view services and price estimates."
+                  secondaryActionLabel="Browse"
+                  showSecondaryAction
+                />
               </div>
             ))}
           </div>
