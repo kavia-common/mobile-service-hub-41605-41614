@@ -1,6 +1,7 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import BrandCard from "../components/BrandCard";
+import FullscreenMapModal from "../components/FullscreenMapModal";
 
 import appleLogo from "../assets/brands/apple.svg";
 import samsungLogo from "../assets/brands/samsung.svg";
@@ -39,6 +40,8 @@ const popularBrands = [
 // PUBLIC_INTERFACE
 export default function Home() {
   /** Home page with premium, minimal hero + brand quick-pick + trust-building map section. */
+
+  const [isMapOpen, setIsMapOpen] = useState(false);
 
   const scrollToBrandSelection = () => {
     const el = document.getElementById("brand-selection");
@@ -115,7 +118,12 @@ export default function Home() {
           <h2 className="homeMap__title">Your Device Is Handled Securely — Tracked in Real Time</h2>
 
           <div className="homeMap__wrap card">
-            <div className="homeMap__frame" aria-label="Demo route map from Service Center to you">
+            <button
+              type="button"
+              className="homeMap__frame homeMap__frameBtn"
+              aria-label="Open map in full screen"
+              onClick={() => setIsMapOpen(true)}
+            >
               <iframe
                 title="Demo repair route map"
                 src={mapEmbedSrc}
@@ -123,8 +131,12 @@ export default function Home() {
                 referrerPolicy="no-referrer-when-downgrade"
                 style={{ border: 0 }}
                 allowFullScreen
+                tabIndex={-1}
               />
-            </div>
+              <span className="homeMap__tapHint" aria-hidden="true">
+                Tap to open full screen
+              </span>
+            </button>
 
             <div className="homeMap__legend" aria-label="Map marker legend">
               <div className="homeMap__legendItem">
@@ -303,6 +315,13 @@ export default function Home() {
           </div>
         </section>
       </div>
+
+      <FullscreenMapModal
+        isOpen={isMapOpen}
+        title="Repair tracking map (demo)"
+        mapSrc={mapEmbedSrc}
+        onClose={() => setIsMapOpen(false)}
+      />
     </main>
   );
 }

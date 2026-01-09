@@ -1618,3 +1618,158 @@ a { color: inherit; text-decoration: none; }
     margin-top: 10px;
   }
 }
+
+/* --- Fullscreen map modal overlay --- */
+
+.fsModal {
+  position: fixed;
+  inset: 0;
+  z-index: 200; /* Above nav (50/60) and all page content */
+  display: grid;
+  place-items: center;
+  padding: 18px;
+
+  background: rgba(17, 24, 39, 0.62);
+  backdrop-filter: blur(3px);
+
+  /* Smooth entry without layout shifts */
+  animation: fsModalFadeIn 140ms ease-out;
+}
+
+@keyframes fsModalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fsModal__panel {
+  position: relative;
+  width: min(1100px, 100%);
+  height: min(82vh, 760px);
+
+  background: rgba(249, 250, 251, 0.98);
+  border: 1px solid rgba(37, 99, 235, 0.16);
+  border-radius: 18px;
+  box-shadow: 0 24px 70px rgba(17, 24, 39, 0.32);
+
+  overflow: hidden;
+
+  /* Ensure keyboard focus ring doesn't shift */
+  outline: none;
+}
+
+.fsModal__content {
+  width: 100%;
+  height: 100%;
+}
+
+.fsModal__iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.fsModal__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+
+  border: 1px solid rgba(229, 231, 235, 0.9);
+  background: rgba(255, 255, 255, 0.92);
+  color: rgba(17, 24, 39, 0.75);
+
+  cursor: pointer;
+  font: inherit;
+  font-size: 1.4rem;
+  line-height: 1;
+
+  box-shadow: 0 10px 20px rgba(17, 24, 39, 0.10);
+  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+}
+
+.fsModal__close:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 1);
+  border-color: rgba(37, 99, 235, 0.20);
+  box-shadow: 0 14px 26px rgba(17, 24, 39, 0.14);
+}
+
+.fsModal__close:active {
+  transform: none;
+}
+
+.fsModal__close:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.18), 0 14px 26px rgba(17, 24, 39, 0.14);
+}
+
+/* Mobile: make it truly fullscreen */
+@media (max-width: 720px) {
+  .fsModal {
+    padding: 0;
+  }
+
+  .fsModal__panel {
+    width: 100%;
+    height: 100vh;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+  }
+
+  .fsModal__close {
+    top: 10px;
+    right: 10px;
+  }
+}
+
+/* --- Home map: clickable preview to open fullscreen --- */
+
+.homeMap__frameBtn {
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  text-align: left;
+}
+
+.homeMap__frameBtn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.18);
+}
+
+.homeMap__frameBtn iframe {
+  /* The preview is for display; interaction happens in fullscreen modal. */
+  pointer-events: none;
+}
+
+.homeMap__tapHint {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+
+  padding: 8px 10px;
+  border-radius: 999px;
+
+  background: rgba(17, 24, 39, 0.55);
+  color: rgba(255, 255, 255, 0.92);
+
+  font-weight: 900;
+  font-size: 0.82rem;
+  letter-spacing: -0.01em;
+
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(4px);
+}
+
+@media (max-width: 720px) {
+  .homeMap__tapHint {
+    left: 10px;
+    bottom: 10px;
+    font-size: 0.8rem;
+  }
+}
