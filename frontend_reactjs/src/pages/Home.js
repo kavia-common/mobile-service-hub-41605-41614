@@ -21,11 +21,13 @@ const popularBrands = [
   { name: "Google", logoSrc: googleLogo, logoAlt: "Google logo" },
   { name: "OnePlus", logoSrc: oneplusLogo, logoAlt: "OnePlus logo" },
   { name: "Xiaomi", logoSrc: xiaomiLogo, logoAlt: "Xiaomi logo" },
-  { name: "Oppo", logoSrc: oppoLogo, logoAlt: "Oppo logo" },
+
+  /* Use official casing for label + selection value (keeps UX consistent with brand identity). */
+  { name: "OPPO", logoSrc: oppoLogo, logoAlt: "OPPO logo" },
   { name: "Motorola", logoSrc: motorolaLogo, logoAlt: "Motorola logo" },
   { name: "Nokia", logoSrc: nokiaLogo, logoAlt: "Nokia logo" },
   { name: "Sony", logoSrc: sonyLogo, logoAlt: "Sony logo" },
-  { name: "Vivo", logoSrc: vivoLogo, logoAlt: "Vivo logo" }
+  { name: "vivo", logoSrc: vivoLogo, logoAlt: "vivo logo" }
 ];
 
 const SPARE_ACCESSORY_GROUPS = [
