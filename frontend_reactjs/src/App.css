@@ -83,6 +83,19 @@ a { color: inherit; text-decoration: none; }
 
 .muted { color: var(--muted); margin: 0; }
 
+/* Visually hidden content (accessible to screen readers only) */
+.srOnly {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -919,168 +932,121 @@ a { color: inherit; text-decoration: none; }
   gap: 12px;
 }
 
-/* 02.03: Large, tap-friendly brand cards (Home -> Services preselected) */
+/* Brand section: clean, flat official logo grid (no card tiles) */
 .brandBigGrid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
+
+  /* Uniform responsive grid: expands from mobile->desktop without awkward gaps */
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(12px, 2vw, 18px);
+
+  /* Clean white background per requirements */
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: clamp(10px, 1.8vw, 18px);
 }
 
-.brandBigCard {
+/* Flat logo tile */
+.brandLogoTile {
   width: 100%;
-  text-align: left;
+  height: 74px;
 
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-  padding: 16px;
+  /* Remove card look completely */
+  background: transparent;
+  border: none;
+  box-shadow: none;
 
+  border-radius: 14px;
   cursor: pointer;
-  user-select: none;
   -webkit-tap-highlight-color: transparent;
 
-  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease, background 140ms ease;
-}
-
-.brandBigCard:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
-  border-color: rgba(37, 99, 235, 0.25);
-  background: linear-gradient(180deg, rgba(249, 250, 251, 1), rgba(37, 99, 235, 0.06));
-}
-
-.brandBigCard:active {
-  transform: none;
-}
-
-.brandBigCard:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.16), var(--shadow-md);
-  border-color: rgba(37, 99, 235, 0.35);
-}
-
-.brandBigCard__inner {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.brandBigCard__mark {
-  width: 56px;
-  height: 56px;
-  border-radius: 18px;
   display: grid;
   place-items: center;
-  font-weight: 900;
-  color: var(--primary);
-  background: rgba(37, 99, 235, 0.10);
-  border: 1px solid rgba(37, 99, 235, 0.18);
-  overflow: hidden;
-  flex: 0 0 auto;
+
+  transition: transform 150ms ease, opacity 150ms ease, background 150ms ease;
 }
 
-.brandBigCard__logo {
+.brandLogoTile__inner {
   width: 100%;
   height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+/* Uniform logo sizing: keep original brand colors, no recoloring */
+.brandLogoTile__img {
+  width: 100%;
+  height: 100%;
+  max-width: 120px; /* controls perceived uniformity across varied logo aspect ratios */
+  max-height: 34px;
+
   object-fit: contain;
   display: block;
 }
 
 /* Ensure Apple logo renders correctly (the SVG uses currentColor in this asset set). */
-.brandBigCard__logo[alt="Apple logo"] {
-  color: #FFFFFF;
+.brandLogoTile__img[alt="Apple logo"] {
+  color: #111827;
 }
 
-.brandBigCard__initial {
-  line-height: 1;
-  font-size: 1.2rem;
+/* Subtle hover: premium + not distracting */
+.brandLogoTile:hover {
+  transform: translateY(-1px) scale(1.02);
+  opacity: 0.92;
+  background: rgba(17, 24, 39, 0.02);
 }
 
-.brandBigCard__text {
-  display: grid;
-  gap: 6px;
-  min-width: 0;
-}
-
-.brandBigCard__nameRow {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-  min-width: 0;
-}
-
-.brandBigCard__name {
-  font-weight: 900;
-  letter-spacing: -0.02em;
-  font-size: 1.05rem;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.brandBigCard__arrow {
-  color: var(--muted);
-  font-weight: 900;
-  opacity: 0.85;
-  transition: transform 160ms ease, color 160ms ease, opacity 160ms ease;
-  flex: 0 0 auto;
-}
-
-.brandBigCard:hover .brandBigCard__arrow {
-  transform: translateX(2px);
-  color: var(--primary);
-  opacity: 1;
-}
-
-.brandBigCard__helper {
-  color: var(--muted);
-  font-weight: 750;
-  font-size: 0.9rem;
-  line-height: 1.35;
-}
-
-.brandBigCard__actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 2px;
-}
-
-.brandBigCard__secondaryBtn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 7px 10px;
-  border-radius: 12px;
-
-  border: 1px solid rgba(37, 99, 235, 0.18);
-  background: rgba(37, 99, 235, 0.08);
-  color: var(--primary);
-
-  font-weight: 900;
-  font-size: 0.86rem;
-  user-select: none;
-
-  transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease, border-color 140ms ease;
-}
-
-.brandBigCard__secondaryBtn:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-sm);
-  border-color: rgba(37, 99, 235, 0.26);
-  background: rgba(37, 99, 235, 0.10);
-}
-
-.brandBigCard__secondaryBtn:active {
+.brandLogoTile:active {
   transform: none;
+  opacity: 0.9;
 }
 
-.brandBigCard__secondaryBtn:focus-visible {
+.brandLogoTile:focus-visible {
   outline: none;
+  background: rgba(37, 99, 235, 0.06);
   box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.16);
+}
+
+/* Fallback only if an image fails to load */
+.brandLogoTile__fallback {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(37, 99, 235, 0.08);
+  border: 1px solid rgba(37, 99, 235, 0.18);
+  color: var(--primary);
+  font-weight: 900;
+}
+
+/* Responsive tuning for the logo grid */
+@media (max-width: 980px) {
+  .brandBigGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .brandBigGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: 12px;
+  }
+
+  .brandLogoTile {
+    height: 68px;
+  }
+
+  .brandLogoTile__img {
+    max-width: 110px;
+    max-height: 32px;
+  }
+}
+
+@media (max-width: 420px) {
+  .brandBigGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 /* Keep old small brand card styles for any remaining usage (backward-compatible) */

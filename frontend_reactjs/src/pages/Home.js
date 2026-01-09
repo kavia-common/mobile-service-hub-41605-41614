@@ -338,14 +338,7 @@ export default function Home() {
           <div className="brandBigGrid" role="list" aria-label="Popular brands">
             {popularBrands.map((b) => (
               <div role="listitem" key={b.name}>
-                <BrandCard
-                  name={b.name}
-                  logoSrc={b.logoSrc}
-                  logoAlt={b.logoAlt}
-                  helperText="Instantly view services and price estimates."
-                  secondaryActionLabel="Browse"
-                  showSecondaryAction
-                />
+                <BrandCard name={b.name} logoSrc={b.logoSrc} logoAlt={b.logoAlt} />
               </div>
             ))}
           </div>

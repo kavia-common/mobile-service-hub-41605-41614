@@ -3,15 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { encodeBrandToSearch, persistSelectedBrand } from "../utils/brandSelection";
 
 /**
- * Large, tap-friendly Brand card (02.03).
+ * BrandLogoTile (replaces previous card-style BrandCard).
  *
- * Behavior:
- * - Clicking navigates to /services?brand=<BrandName>
- * - Also persists the selection so Booking can default to the same brand.
- *
- * UI refinements:
- * - Optional helper text under the brand name
- * - Optional secondary action (small button) without triggering the main navigation
+ * Requirements implemented:
+ * - Flat official logos (no card background/border/shadow).
+ * - Uniform sizing and centered alignment.
+ * - Subtle hover (scale + opacity) and accessible focus ring.
+ * - Preserve existing navigation: /services?brand=<BrandName> and persisted selection.
  */
 
 // PUBLIC_INTERFACE
@@ -19,11 +17,11 @@ export default function BrandCard({
   name,
   logoSrc,
   logoAlt,
-  helperText = "View compatible options and pricing.",
-  secondaryActionLabel = "Browse",
-  showSecondaryAction = true
+  helperText = "",
+  secondaryActionLabel = "",
+  showSecondaryAction = false
 }) {
-  /** Render a large clickable brand card that navigates to Services with brand preselected. */
+  /** Render a flat, clickable brand logo tile that navigates to Services with brand preselected. */
   const navigate = useNavigate();
   const [imgOk, setImgOk] = useState(true);
 
@@ -48,64 +46,33 @@ export default function BrandCard({
   return (
     <button
       type="button"
-      className="brandBigCard"
+      className="brandLogoTile"
       onClick={openBrand}
       aria-label={`Browse services for ${name || "this brand"}`}
+      title={name || ""}
     >
-      <span className="brandBigCard__inner">
-        <span className="brandBigCard__mark" aria-hidden="true">
-          {showImage ? (
-            <img
-              className="brandBigCard__logo"
-              src={logoSrc}
-              alt={computedAlt}
-              loading="lazy"
-              onError={() => setImgOk(false)}
-            />
-          ) : (
-            <span className="brandBigCard__initial">
-              {String(name || "?").slice(0, 1).toUpperCase()}
-            </span>
-          )}
-        </span>
-
-        <span className="brandBigCard__text">
-          <span className="brandBigCard__nameRow">
-            <span className="brandBigCard__name">{name}</span>
-            <span className="brandBigCard__arrow" aria-hidden="true">
-              →
-            </span>
+      <span className="brandLogoTile__inner">
+        {showImage ? (
+          <img
+            className="brandLogoTile__img"
+            src={logoSrc}
+            alt={computedAlt}
+            loading="lazy"
+            onError={() => setImgOk(false)}
+          />
+        ) : (
+          <span className="brandLogoTile__fallback" aria-hidden="true">
+            {String(name || "?").slice(0, 1).toUpperCase()}
           </span>
-
-          {helperText ? <span className="brandBigCard__helper">{helperText}</span> : null}
-
-          {showSecondaryAction ? (
-            <span className="brandBigCard__actions">
-              <span
-                role="button"
-                tabIndex={0}
-                className="brandBigCard__secondaryBtn"
-                onClick={(e) => {
-                  // Prevent triggering the main button click.
-                  e.preventDefault();
-                  e.stopPropagation();
-                  openBrand();
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    openBrand();
-                  }
-                }}
-                aria-label={`${secondaryActionLabel} ${name || "brand"}`}
-              >
-                {secondaryActionLabel}
-              </span>
-            </span>
-          ) : null}
-        </span>
+        )}
       </span>
+
+      {/* Keep API backward-compatibility (props), but do not render card UI per requirements. */}
+      {Boolean(helperText) && showSecondaryAction && secondaryActionLabel ? (
+        <span className="srOnly">
+          {helperText} {secondaryActionLabel}
+        </span>
+      ) : null}
     </button>
   );
 }
