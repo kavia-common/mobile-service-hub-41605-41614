@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { encodeBrandToSearch, persistSelectedBrand } from "../utils/brandSelection";
 
 /**
- * BrandLogoTile (replaces previous card-style BrandCard).
+ * Premium Brand Tile
  *
  * Requirements implemented:
- * - Flat official logos (no card background/border/shadow).
- * - Uniform sizing and centered alignment.
- * - Subtle hover (scale + opacity) and accessible focus ring.
+ * - Official logos displayed with equal visual weight (consistent container + sizing).
+ * - Subtle uniform container (border + soft surface), smooth hover/focus.
+ * - Centered brand label under logo.
  * - Preserve existing navigation: /services?brand=<BrandName> and persisted selection.
  */
 
@@ -21,7 +21,7 @@ export default function BrandCard({
   secondaryActionLabel = "",
   showSecondaryAction = false
 }) {
-  /** Render a flat, clickable brand logo tile that navigates to Services with brand preselected. */
+  /** Premium, accessible brand tile that navigates to Services with brand preselected. */
   const navigate = useNavigate();
   const [imgOk, setImgOk] = useState(true);
 
@@ -37,6 +37,7 @@ export default function BrandCard({
     const brand = String(name || "").trim();
     if (!brand) return;
 
+    // Keep the existing behavior used by Services/Booking flows.
     persistSelectedBrand(brand);
     navigate(`/services${encodeBrandToSearch(brand)}`, {
       state: { selectedBrand: brand }
@@ -46,28 +47,33 @@ export default function BrandCard({
   return (
     <button
       type="button"
-      className="brandLogoTile"
+      className="brandLogoTile brandLogoTile--premium"
       onClick={openBrand}
       aria-label={`Browse services for ${name || "this brand"}`}
       title={name || ""}
     >
-      <span className="brandLogoTile__inner">
-        {showImage ? (
-          <img
-            className="brandLogoTile__img"
-            src={logoSrc}
-            alt={computedAlt}
-            loading="lazy"
-            onError={() => setImgOk(false)}
-          />
-        ) : (
-          <span className="brandLogoTile__fallback" aria-hidden="true">
-            {String(name || "?").slice(0, 1).toUpperCase()}
-          </span>
-        )}
+      <span className="brandLogoTile__surface" aria-hidden="true" />
+      <span className="brandLogoTile__content">
+        <span className="brandLogoTile__logoWrap">
+          {showImage ? (
+            <img
+              className="brandLogoTile__img"
+              src={logoSrc}
+              alt={computedAlt}
+              loading="lazy"
+              onError={() => setImgOk(false)}
+            />
+          ) : (
+            <span className="brandLogoTile__fallback" aria-hidden="true">
+              {String(name || "?").slice(0, 1).toUpperCase()}
+            </span>
+          )}
+        </span>
+
+        <span className="brandLogoTile__label">{name}</span>
       </span>
 
-      {/* Keep API backward-compatibility (props), but do not render card UI per requirements. */}
+      {/* Keep API backward-compatibility (props) without changing visuals. */}
       {Boolean(helperText) && showSecondaryAction && secondaryActionLabel ? (
         <span className="srOnly">
           {helperText} {secondaryActionLabel}

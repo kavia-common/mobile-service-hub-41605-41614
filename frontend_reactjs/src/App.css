@@ -932,53 +932,87 @@ a { color: inherit; text-decoration: none; }
   gap: 12px;
 }
 
-/* Brand section: clean, flat official logo grid (no card tiles) */
+/* Brand section: premium, balanced logo tiles */
 .brandBigGrid {
   display: grid;
 
-  /* Uniform responsive grid: expands from mobile->desktop without awkward gaps */
+  /* Responsive grid tuned for balanced tiles */
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: clamp(12px, 2vw, 18px);
 
-  /* Clean white background per requirements */
-  background: var(--surface);
-  border-radius: var(--radius-lg);
+  /* Subtle container to visually group the grid without looking "boxed" */
   padding: clamp(10px, 1.8vw, 18px);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.70);
+  border: 1px solid rgba(229, 231, 235, 0.85);
+  box-shadow: 0 1px 0 rgba(17, 24, 39, 0.02);
 }
 
-/* Flat logo tile */
 .brandLogoTile {
   width: 100%;
-  height: 74px;
+  /* Use aspect ratio so tiles feel uniform and premium */
+  aspect-ratio: 1.45 / 1;
+  min-height: 108px;
 
-  /* Remove card look completely */
+  border: 0;
   background: transparent;
-  border: none;
-  box-shadow: none;
-
-  border-radius: 14px;
+  padding: 0;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 
-  display: grid;
-  place-items: center;
+  position: relative;
+  border-radius: 18px;
 
-  transition: transform 150ms ease, opacity 150ms ease, background 150ms ease;
+  /* Avoid layout-shift on focus; ring via box-shadow */
+  outline: none;
+
+  transition: transform 170ms ease, filter 170ms ease;
 }
 
-.brandLogoTile__inner {
-  width: 100%;
+.brandLogoTile__surface {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+
+  background:
+    radial-gradient(120% 140% at 20% 15%, rgba(37, 99, 235, 0.08), rgba(255, 255, 255, 0.96) 55%),
+    rgba(255, 255, 255, 0.92);
+
+  border: 1px solid rgba(229, 231, 235, 0.92);
+  box-shadow:
+    0 1px 2px rgba(17, 24, 39, 0.06),
+    0 0 0 1px rgba(255, 255, 255, 0.55) inset;
+
+  transition: box-shadow 170ms ease, border-color 170ms ease, background 170ms ease;
+}
+
+.brandLogoTile__content {
+  position: relative;
+  z-index: 1;
   height: 100%;
+
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 10px;
+
+  padding: 14px 12px;
+}
+
+.brandLogoTile__logoWrap {
+  height: 44px;
+  width: 100%;
   display: grid;
   place-items: center;
 }
 
-/* Uniform logo sizing: keep original brand colors, no recoloring */
 .brandLogoTile__img {
   width: 100%;
   height: 100%;
-  max-width: 120px; /* controls perceived uniformity across varied logo aspect ratios */
-  max-height: 34px;
+
+  /* Equal visual weight across different logo proportions */
+  max-width: 116px;
+  max-height: 40px;
 
   object-fit: contain;
   display: block;
@@ -989,22 +1023,35 @@ a { color: inherit; text-decoration: none; }
   color: #111827;
 }
 
-/* Subtle hover: premium + not distracting */
+.brandLogoTile__label {
+  text-align: center;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  color: rgba(17, 24, 39, 0.82);
+  font-size: 0.92rem;
+  line-height: 1.1;
+}
+
 .brandLogoTile:hover {
-  transform: translateY(-1px) scale(1.02);
-  opacity: 0.92;
-  background: rgba(17, 24, 39, 0.02);
+  transform: translateY(-2px);
+}
+
+.brandLogoTile:hover .brandLogoTile__surface {
+  border-color: rgba(37, 99, 235, 0.18);
+  box-shadow:
+    0 16px 34px rgba(17, 24, 39, 0.12),
+    0 0 0 1px rgba(255, 255, 255, 0.65) inset;
 }
 
 .brandLogoTile:active {
-  transform: none;
-  opacity: 0.9;
+  transform: translateY(0);
 }
 
-.brandLogoTile:focus-visible {
-  outline: none;
-  background: rgba(37, 99, 235, 0.06);
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.16);
+.brandLogoTile:focus-visible .brandLogoTile__surface {
+  box-shadow:
+    0 0 0 5px rgba(37, 99, 235, 0.18),
+    0 16px 34px rgba(17, 24, 39, 0.12);
+  border-color: rgba(37, 99, 235, 0.30);
 }
 
 /* Fallback only if an image fails to load */
@@ -1025,6 +1072,10 @@ a { color: inherit; text-decoration: none; }
   .brandBigGrid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
+
+  .brandLogoTile__img {
+    max-width: 110px;
+  }
 }
 
 @media (max-width: 720px) {
@@ -1034,12 +1085,12 @@ a { color: inherit; text-decoration: none; }
   }
 
   .brandLogoTile {
-    height: 68px;
+    min-height: 104px;
   }
 
   .brandLogoTile__img {
-    max-width: 110px;
-    max-height: 32px;
+    max-width: 108px;
+    max-height: 38px;
   }
 }
 
