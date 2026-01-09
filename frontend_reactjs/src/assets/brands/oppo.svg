@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 96" role="img" aria-label="Oppo logo">
   <title>Oppo</title>
   <!--
-    Full-color, light-background optimized Oppo-style wordmark.
-    Notes:
-    - Uses a wide, consistent viewBox so the premium grid scales logos uniformly via object-fit:contain.
-    - Fill uses a brand-green approximation that reads correctly on light surfaces.
+    Full, light-background optimized OPPO wordmark (vector).
+    - Wide viewBox ensures the premium grid's uniform sizing rules (object-fit: contain + max-width)
+      do not crop/truncate the mark.
+    - Brand green approximation chosen for clear contrast on light surfaces.
   -->
   <g fill="#1BAA4A">
     <!-- O -->
