@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BrandCard from "../components/BrandCard";
 import FullscreenMapModal from "../components/FullscreenMapModal";
 import GeoRouteMap from "../components/GeoRouteMap";
@@ -28,6 +28,29 @@ const popularBrands = [
   { name: "LG", logoSrc: lgLogo, logoAlt: "LG logo" }
 ];
 
+const SPARE_ACCESSORY_GROUPS = [
+  {
+    id: "spareParts",
+    title: "Spare Parts",
+    items: [
+      { id: "screen", label: "Screen", icon: "🛡️", slug: "screen" },
+      { id: "battery", label: "Battery", icon: "🔋", slug: "battery" },
+      { id: "charging-port", label: "Charging Port", icon: "🔌", slug: "charging-port" },
+      { id: "camera", label: "Camera", icon: "📷", slug: "camera" }
+    ]
+  },
+  {
+    id: "accessories",
+    title: "Accessories",
+    items: [
+      { id: "charger", label: "Charger", icon: "⚡", slug: "charger" },
+      { id: "case", label: "Case", icon: "📱", slug: "case" },
+      { id: "screen-guard", label: "Screen Guard", icon: "🪟", slug: "screen-guard" },
+      { id: "earphones", label: "Earphones", icon: "🎧", slug: "earphones" }
+    ]
+  }
+];
+
 /**
  * Map section (MVP):
  * - Uses a static demo route in Bangalore via Google Maps "directions" embed.
@@ -42,6 +65,7 @@ const popularBrands = [
 export default function Home() {
   /** Home page with premium, minimal hero + brand quick-pick + trust-building map section. */
 
+  const navigate = useNavigate();
   const [isMapOpen, setIsMapOpen] = useState(false);
 
   const scrollToBrandSelection = () => {
@@ -243,8 +267,59 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Spare Parts & Accessories (NEW) */}
+        <section className="section homeSpareAccessories" aria-label="Spare parts and accessories">
+          <div className="sectionHeader" style={{ marginBottom: 14 }}>
+            <div>
+              <h2 className="h2">Spare Parts &amp; Accessories</h2>
+              <p className="muted" style={{ marginTop: 6, lineHeight: 1.6 }}>
+                Choose an item first, then select your brand.
+              </p>
+            </div>
+          </div>
+
+          <div className="homeSpareAccessories__groups" role="list">
+            {SPARE_ACCESSORY_GROUPS.map((group) => (
+              <div key={group.id} className="homeSpareAccessories__group" role="listitem">
+                <div className="homeSpareAccessories__groupTitle">{group.title}</div>
+
+                <div className="homeSpareAccessories__grid" role="list" aria-label={`${group.title} items`}>
+                  {group.items.map((it) => (
+                    <button
+                      key={it.id}
+                      type="button"
+                      className="homeItemCard"
+                      onClick={() =>
+                        navigate(`/shop/${group.id === "spareParts" ? "spare-parts" : "accessories"}/${it.slug}`, {
+                          state: {
+                            selectedCategoryId: group.id,
+                            selectedCategoryLabel: group.title,
+                            selectedItemId: it.id,
+                            selectedItemLabel: it.label
+                          }
+                        })
+                      }
+                      aria-label={`Open ${it.label} under ${group.title}`}
+                    >
+                      <span className="homeItemCard__inner">
+                        <span className="homeItemCard__icon" aria-hidden="true">
+                          {it.icon}
+                        </span>
+                        <span className="homeItemCard__text">{it.label}</span>
+                      </span>
+                      <span className="homeItemCard__chev" aria-hidden="true">
+                        →
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* Brand selection section (CTA scroll target) */}
-        <section id="brand-selection" className="section" style={{ paddingTop: 26 }}>
+        <section id="brand-selection" className="section" style={{ paddingTop: 10 }}>
           <div className="sectionHeader">
             <div>
               <h2 className="h2">Choose your brand</h2>

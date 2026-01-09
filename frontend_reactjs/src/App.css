@@ -1619,6 +1619,116 @@ a { color: inherit; text-decoration: none; }
   }
 }
 
+/* --- Home: Spare Parts & Accessories (NEW) --- */
+
+.homeSpareAccessories {
+  padding-top: 22px; /* sits after trust message; keep compact */
+}
+
+.homeSpareAccessories__groups {
+  display: grid;
+  gap: 16px;
+}
+
+.homeSpareAccessories__groupTitle {
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin: 0 0 10px;
+  color: var(--text);
+}
+
+.homeSpareAccessories__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.homeItemCard {
+  width: 100%;
+  text-align: left;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  padding: 14px 14px;
+  border-radius: var(--radius-lg);
+
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease, background 140ms ease;
+}
+
+.homeItemCard__inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.homeItemCard__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+
+  background: rgba(37, 99, 235, 0.10);
+  border: 1px solid rgba(37, 99, 235, 0.18);
+
+  font-size: 1.2rem;
+  flex: 0 0 auto;
+}
+
+.homeItemCard__text {
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.homeItemCard__chev {
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.homeItemCard:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(37, 99, 235, 0.25);
+  background: linear-gradient(180deg, rgba(249, 250, 251, 1), rgba(37, 99, 235, 0.06));
+}
+
+.homeItemCard:active {
+  transform: none;
+}
+
+.homeItemCard:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.16), var(--shadow-md);
+  border-color: rgba(37, 99, 235, 0.35);
+}
+
+@media (max-width: 980px) {
+  .homeSpareAccessories__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .homeSpareAccessories__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 /* --- Fullscreen map modal overlay --- */
 
 .fsModal {
