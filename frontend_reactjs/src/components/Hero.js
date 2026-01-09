@@ -75,7 +75,7 @@ export default function Hero({
               <div className="heroCard__badge">This week</div>
             </div>
             <ul className="heroCard__list">
-              <li><span className="dot dot--primary" /> Screen repair</li>
+              <li><span className="dot dot--primary" /> Display repair</li>
               <li><span className="dot dot--amber" /> Battery replacement</li>
               <li><span className="dot dot--primary" /> Charging port fixes</li>
               <li><span className="dot dot--amber" /> Diagnostics</li>

@@ -33,7 +33,7 @@ const SPARE_ACCESSORY_GROUPS = [
     id: "spareParts",
     title: "Spare Parts",
     items: [
-      { id: "screen", label: "Screen", icon: "🛡️", slug: "screen" },
+      { id: "display", label: "Display", icon: "🛡️", slug: "display" },
       { id: "battery", label: "Battery", icon: "🔋", slug: "battery" },
       { id: "charging-port", label: "Charging Port", icon: "🔌", slug: "charging-port" },
       { id: "camera", label: "Camera", icon: "📷", slug: "camera" }

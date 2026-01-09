@@ -1,8 +1,8 @@
 export const mockServices = [
   {
     id: "screen-repair",
-    name: "Screen Repair",
-    description: "Cracked screen? We replace displays fast with quality parts.",
+    name: "Display Repair",
+    description: "Cracked display? We replace displays fast with quality parts.",
     eta: "60–90 min",
     priceFrom: 99,
     badge: "Popular"
