@@ -1030,9 +1030,9 @@ a { color: inherit; text-decoration: none; }
    These are intentionally subtle and only affect perceived size/alignment.
    We do NOT recolor logos; we only adjust transforms within the same fixed tile. */
 
-/* OPPO: tends to read slightly smaller due to letter spacing; bump scale a touch. */
+/* OPPO: slightly reduce visual weight (OPPO-only) while keeping the grid unchanged. */
 .brandLogoTile__img[alt="Oppo logo"] {
-  transform: scale(1.08);
+  transform: scale(1.04);
 }
 
 /* vivo: typically looks a bit shorter; increase scale slightly. */
