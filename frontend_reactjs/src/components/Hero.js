@@ -7,11 +7,11 @@ import samsungLogo from "../assets/brands/samsung.svg";
 import googleLogo from "../assets/brands/google.svg";
 import oneplusLogo from "../assets/brands/oneplus.svg";
 import xiaomiLogo from "../assets/brands/xiaomi.svg";
-import huaweiLogo from "../assets/brands/huawei.svg";
+import oppoLogo from "../assets/brands/oppo.svg";
 import motorolaLogo from "../assets/brands/motorola.svg";
 import nokiaLogo from "../assets/brands/nokia.svg";
 import sonyLogo from "../assets/brands/sony.svg";
-import lgLogo from "../assets/brands/lg.svg";
+import vivoLogo from "../assets/brands/vivo.svg";
 
 const defaultBrands = [
   { name: "Apple", logoSrc: appleLogo, logoAlt: "Apple logo" },
@@ -19,11 +19,11 @@ const defaultBrands = [
   { name: "Google", logoSrc: googleLogo, logoAlt: "Google logo" },
   { name: "OnePlus", logoSrc: oneplusLogo, logoAlt: "OnePlus logo" },
   { name: "Xiaomi", logoSrc: xiaomiLogo, logoAlt: "Xiaomi logo" },
-  { name: "Huawei", logoSrc: huaweiLogo, logoAlt: "Huawei logo" },
+  { name: "Oppo", logoSrc: oppoLogo, logoAlt: "Oppo logo" },
   { name: "Motorola", logoSrc: motorolaLogo, logoAlt: "Motorola logo" },
   { name: "Nokia", logoSrc: nokiaLogo, logoAlt: "Nokia logo" },
   { name: "Sony", logoSrc: sonyLogo, logoAlt: "Sony logo" },
-  { name: "LG", logoSrc: lgLogo, logoAlt: "LG logo" }
+  { name: "Vivo", logoSrc: vivoLogo, logoAlt: "Vivo logo" }
 ];
 
 // PUBLIC_INTERFACE

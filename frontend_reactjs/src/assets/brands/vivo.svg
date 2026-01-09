@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Vivo logo">
+  <title>Vivo</title>
+  <!--
+    Minimal, scalable Vivo-style wordmark using currentColor.
+    Kept simple to avoid layout/style changes while providing a clear brand indicator.
+  -->
+  <g fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+    <!-- V -->
+    <path d="M28 72l44 112 44-112"/>
+    <!-- i -->
+    <path d="M128 104v80"/>
+    <path d="M128 76h0"/>
+    <!-- v -->
+    <path d="M148 104l28 80 28-80"/>
+    <!-- o -->
+    <path d="M206 144c0-22.1 12.5-40 34-40s34 17.9 34 40-12.5 40-34 40-34-17.9-34-40z"/>
+  </g>
+</svg>

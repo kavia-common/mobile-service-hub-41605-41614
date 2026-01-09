@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Oppo logo">
+  <title>Oppo</title>
+  <!--
+    Minimal, scalable Oppo-style wordmark rendered with stroke outlines.
+    Uses currentColor so it adapts to the app theme and matches existing logo behavior.
+  -->
+  <g fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+    <!-- O -->
+    <path d="M40 128c0-33.1 18.9-60 54-60s54 26.9 54 60-18.9 60-54 60-54-26.9-54-60z"/>
+    <!-- P -->
+    <path d="M132 188V68h40c22.1 0 40 17.9 40 40s-17.9 40-40 40h-40"/>
+    <!-- P (second) -->
+    <path d="M196 188V68h30c16.6 0 30 13.4 30 30s-13.4 30-30 30h-30"/>
+  </g>
+</svg>
