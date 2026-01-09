@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import BrandCard from "../components/BrandCard";
 import FullscreenMapModal from "../components/FullscreenMapModal";
+import GeoRouteMap from "../components/GeoRouteMap";
 
 import appleLogo from "../assets/brands/apple.svg";
 import samsungLogo from "../assets/brands/samsung.svg";
@@ -318,10 +319,18 @@ export default function Home() {
 
       <FullscreenMapModal
         isOpen={isMapOpen}
-        title="Repair tracking map (demo)"
-        mapSrc={mapEmbedSrc}
+        title="Repair tracking map"
         onClose={() => setIsMapOpen(false)}
-      />
+      >
+        <div style={{ padding: 14, height: "100%", display: "grid" }}>
+          <div className="card" style={{ margin: 0, height: "100%" }}>
+            <GeoRouteMap title="Live route to Service Center" height={"100%"} />
+          </div>
+          <div className="muted" style={{ marginTop: 10, fontWeight: 700 }}>
+            Tip: Tap “Use my location” to see your route, distance, and ETA. If you deny permission, we’ll keep showing the service center.
+          </div>
+        </div>
+      </FullscreenMapModal>
     </main>
   );
 }

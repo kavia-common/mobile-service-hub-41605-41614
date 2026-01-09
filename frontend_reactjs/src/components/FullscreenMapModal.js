@@ -5,6 +5,10 @@ import React, { useEffect, useMemo, useRef } from "react";
  * - Covers full viewport with a dimmed backdrop
  * - Locks background scroll while open
  * - Closes on: close button, click outside panel, or Escape key
+ *
+ * Supports two rendering modes:
+ * 1) iframe mode via `mapSrc`
+ * 2) custom content via `children` (preferred for interactive maps)
  */
 
 // PUBLIC_INTERFACE
@@ -12,9 +16,10 @@ export default function FullscreenMapModal({
   isOpen,
   title = "Map",
   mapSrc,
-  onClose
+  onClose,
+  children
 }) {
-  /** Fullscreen map overlay modal. */
+  /** Fullscreen map overlay modal (iframe or custom content). */
   const panelRef = useRef(null);
 
   const normalizedSrc = useMemo(() => {
@@ -63,6 +68,8 @@ export default function FullscreenMapModal({
     if (onClose) onClose();
   };
 
+  const hasChildren = Boolean(children);
+
   return (
     <div
       className="fsModal"
@@ -94,7 +101,11 @@ export default function FullscreenMapModal({
         </button>
 
         <div className="fsModal__content">
-          {normalizedSrc ? (
+          {hasChildren ? (
+            <div style={{ width: "100%", height: "100%" }}>
+              {children}
+            </div>
+          ) : normalizedSrc ? (
             <iframe
               className="fsModal__iframe"
               title={title}
